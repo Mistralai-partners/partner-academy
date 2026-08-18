@@ -1,0 +1,22 @@
+# researcher.toml - a delegation-only SUBAGENT.
+# Grounded in cli/agents.md: a subagent (agent_type = "subagent") is NOT
+# selectable by the user. The model spawns it through the `task` tool to
+# delegate background work, and it returns TEXT-ONLY results to the parent.
+# Subagents cannot ask the user questions.
+#
+# Posture: read-only research helper the parent agent can fan work out to
+# without granting it write or shell access.
+
+agent_type   = "subagent"       # delegation-only; invoked via the task tool
+display_name = "Researcher"
+description  = "Read-only research subagent. Explores the tree and reports findings as text."
+safety       = "safe"
+
+# Least privilege for a delegated worker: search + read, nothing that mutates.
+enabled_tools = ["grep", "read_file"]
+
+[tools.grep]
+permission = "always"
+
+[tools.read_file]
+permission = "always"

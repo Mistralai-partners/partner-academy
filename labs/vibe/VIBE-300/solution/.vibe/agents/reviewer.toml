@@ -1,0 +1,3 @@
+name = "reviewer"
+description = "Reviews code read-only"
+enabled_tools = ["read_file", "list_files", "grep", "glob"]

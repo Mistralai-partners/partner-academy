@@ -1,0 +1,11 @@
+# Hook run artifacts (written by the audit/gate hooks during runs and verify)
+audit.log
+**/audit.log
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Local live-run scratch
+/tmp/vibe_live.json

@@ -1,0 +1,12 @@
+# Project-level Vibe configuration for the taskvault demo repo.
+# Loaded only when this folder is trusted (accept the trust prompt in an
+# interactive session, or pass --trust for non-interactive -p runs).
+#
+# A fresh session opens read-only, so you explore in front of the customer
+# before anything can change on disk - the safe way to start a live demo.
+default_agent = "plan"
+
+# The bash tool must ask before running a command. On a projector, you never
+# want a shell command to fire without you seeing it first.
+[tools.bash]
+permission = "ask"

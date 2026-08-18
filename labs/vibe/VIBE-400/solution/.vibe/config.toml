@@ -1,0 +1,38 @@
+# config.toml - the project-level permission posture for this repo.
+#
+# Precedence (grounded in cli/configuration.md), highest to lowest:
+#   1. command-line flags (e.g. --agent, --enabled-tools)
+#   2. environment variables (VIBE_*, MISTRAL_API_KEY)
+#   3. project  ./.vibe/config.toml   <-- this file
+#   4. user     ~/.vibe/config.toml
+# A selected agent profile (--agent) is an override layer on top of the
+# merged config, so an agent's enabled_tools/permissions win for that run.
+# Project config is only loaded when the folder is TRUSTED.
+#
+# Design goal: a safe team default. The agent may read and search freely,
+# may edit files (reviewed), but bash is gated and destructive shell is
+# blocked outright - so even --agent auto-approve cannot rm -rf this tree
+# through the bash tool without tripping the deny list.
+
+default_agent = "plan"          # interactive default: read-only until you opt up
+
+# Global tool availability. Disable the network reach by default.
+disabled_tools = ["web_search"]
+
+# Per-tool permissions. "always" | "ask" | "never".
+[tools.read_file]
+permission = "always"
+
+[tools.grep]
+permission = "always"
+
+[tools.write_file]
+permission = "ask"              # edits are allowed but always surfaced
+
+[tools.bash]
+permission = "ask"              # never blanket-allow the shell
+# Extend the auto-allow list with known-safe project commands, and BLOCK
+# destructive ones. A denylist match wins even under an "always"/auto-approve
+# posture - which is why a sensitive pattern still prompts or blocks.
+allow = ["git status", "git diff", "python3 -m pytest"]
+deny  = ["rm -rf *", "git push", "git reset --hard"]

@@ -1,0 +1,3 @@
+# Least-change fix: allow bash but require approval (not a blanket allow).
+[tools.bash]
+permission = "ask"

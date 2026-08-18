@@ -1,0 +1,11 @@
+# Project-level Vibe configuration for the textkit repo (solution).
+# Loaded only when this folder is trusted.
+
+# A fresh interactive session opens read-only, so a new contributor explores
+# before anything can change on disk.
+default_agent = "plan"
+
+# The bash tool must ask before running a command, even under an
+# edit-approving agent - the safe-by-default posture for a shared repo.
+[tools.bash]
+permission = "ask"

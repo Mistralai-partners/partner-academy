@@ -1,0 +1,5 @@
+[
+  {"type":"message","role":"user","content":[{"type":"text","text":"Review the diff in app/. End with VERDICT: APPROVE or VERDICT: REQUEST_CHANGES."}]},
+  {"type":"reasoning","text":"The change shells out with an unsanitized string. Command injection risk."},
+  {"type":"message","role":"assistant","content":[{"type":"text","text":"The diff passes user input straight into os.system(), a command-injection risk. Use subprocess with an argument list and validate input.\n\nVERDICT: REQUEST_CHANGES"}]}
+]

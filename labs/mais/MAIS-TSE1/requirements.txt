@@ -1,0 +1,5 @@
+# Pinned for this lab. mistralai 2.x breaks `from mistralai import Mistral`.
+# pydantic backs the Document AI annotation schema (task 1).
+mistralai==1.9.11
+pydantic
+python-dotenv

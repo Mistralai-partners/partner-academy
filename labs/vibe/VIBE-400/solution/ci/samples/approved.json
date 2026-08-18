@@ -1,0 +1,5 @@
+[
+  {"type":"message","role":"user","content":[{"type":"text","text":"Review the diff in app/. End with VERDICT: APPROVE or VERDICT: REQUEST_CHANGES."}]},
+  {"type":"reasoning","text":"The change adds input validation and a test. Looks safe."},
+  {"type":"message","role":"assistant","content":[{"type":"text","text":"The diff adds bounds checking to parse_amount() and a matching unit test. No security or correctness concerns.\n\nVERDICT: APPROVE"}]}
+]

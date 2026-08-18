@@ -1,0 +1,41 @@
+# hooks.toml - extend the Vibe Code agent loop.
+#
+# Discovery (grounded in vibe.core.config.harness_files): the CLI reads
+# `<project>/.vibe/hooks.toml` (this file, when the folder is trusted) and,
+# for user scope, `$VIBE_HOME/hooks.toml`. Each [[hooks]] entry is validated
+# against vibe.core.hooks.models.HookConfig.
+#
+# Fields: name (unique), type (pre_tool|post_tool|post_agent), command
+# (run through the shell with the invocation JSON on stdin), match (glob on
+# tool_name, tool hooks only), strict (bool, tool hooks only), timeout
+# (seconds, default 60), description.
+
+# 1) pre_tool GUARD - runs BEFORE bash executes; can deny the call.
+#    strict=true: if the hook errors/times out, the tool is DENIED (fail
+#    closed) instead of a soft warning. match="bash" scopes it to the bash
+#    tool only.
+[[hooks]]
+name = "bash-guard"
+type = "pre_tool"
+match = "bash"
+strict = true
+command = "python3 .vibe/hooks/guard.py"
+description = "Deny destructive shell commands (rm -rf, git push, curl | sh) in automation."
+
+# 2) post_tool AUDIT - runs AFTER any tool body executes. Appends one line
+#    per executed tool call to audit.log. Only fires when the body ran, so a
+#    guard denial leaves no audit line for that call.
+[[hooks]]
+name = "tool-audit"
+type = "post_tool"
+match = "*"
+command = "python3 .vibe/hooks/audit.py"
+description = "Append every executed tool call to audit.log for a run trail."
+
+# 3) post_agent GATE - runs after each assistant turn. No match/strict
+#    allowed on post_agent. Records a turn boundary.
+[[hooks]]
+name = "turn-gate"
+type = "post_agent"
+command = "python3 .vibe/hooks/gate.py"
+description = "Record a turn boundary in audit.log after each assistant turn."

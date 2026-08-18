@@ -1,0 +1,32 @@
+{
+  "customer": "Northwind Logistics",
+  "candidates": {
+    "carrier_adapter_delivery": {
+      "marks": {
+        "strategically_valuable": true,
+        "highly_urgent": true,
+        "production_bound": true,
+        "feasible_within_six_months": true
+      },
+      "verdict": "ready"
+    },
+    "internal_doc_generator": {
+      "marks": {
+        "strategically_valuable": false,
+        "highly_urgent": false,
+        "production_bound": false,
+        "feasible_within_six_months": true
+      },
+      "verdict": "needs_scoping"
+    }
+  },
+  "primary_surface": "cli",
+  "engagement_type": "core_process_automation",
+  "recommended_next_step": "iconic_use_case_workshop",
+  "objection": {
+    "raised": "on_premises",
+    "primary_pillar": "enterprise_ready",
+    "offer_security_review": true,
+    "bridge_to_solutions_engineer": true
+  }
+}

@@ -1,0 +1,36 @@
+# ci-reviewer.toml - a user-facing custom agent profile.
+# Grounded in vibe.core docs (cli/agents.md): an agent is a set of config
+# OVERRIDES layered on top of the global config. Select at launch with
+#   vibe --agent ci-reviewer
+# The CLI resolves this filename in ./.vibe/agents/ (project) or
+# ~/.vibe/agents/ (user).
+#
+# Posture: a code reviewer for untrusted fork PRs. It must READ and SEARCH
+# but never mutate the tree or run shell commands - least privilege for the
+# blast radius of an untrusted checkout.
+
+agent_type   = "agent"          # user-facing; selectable via --agent / Shift+Tab
+display_name = "CI reviewer"
+description  = "Read-only reviewer for untrusted PRs. Reads and greps only."
+safety       = "safe"           # visual hint only - does NOT enforce; back it with tools below
+
+# Only these tools exist for this agent. Everything else (write_file,
+# search_replace, bash, task, ...) is unavailable.
+enabled_tools = ["read_file", "grep"]
+
+# Belt-and-braces: even if the allowlist were widened, keep reads at "always"
+# and pin the mutating/shell tools to "never".
+[tools.read_file]
+permission = "always"
+
+[tools.grep]
+permission = "always"
+
+[tools.bash]
+permission = "never"
+
+[tools.write_file]
+permission = "never"
+
+[tools.search_replace]
+permission = "never"
