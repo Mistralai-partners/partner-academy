@@ -1,0 +1,49 @@
+diff --git a/src/csv_report/cli.py b/src/csv_report/cli.py
+index dd0072f..3e4bffa 100644
+--- a/src/csv_report/cli.py
++++ b/src/csv_report/cli.py
+@@ -13,7 +13,7 @@ def build_parser():
+     export_parser = subparsers.add_parser("export", help="Export the sample dataset")
+     export_parser.add_argument(
+         "--format",
+-        choices=["csv"],
++        choices=["csv", "json"],
+         default="csv",
+         help="Output format for the report",
+     )
+diff --git a/src/csv_report/export.py b/src/csv_report/export.py
+index f5ca971..13d9c05 100644
+--- a/src/csv_report/export.py
++++ b/src/csv_report/export.py
+@@ -1,11 +1,12 @@
+ """Export logic for csv-report.
+ 
+ `export_rows` turns a list of row dicts into a formatted report string.
+-Only the CSV format is implemented right now.
++Supports the CSV and JSON output formats.
+ """
+ 
+ import csv
+ import io
++import json
+ 
+ 
+ def export_rows(rows, fmt):
+@@ -13,7 +14,7 @@ def export_rows(rows, fmt):
+ 
+     Args:
+         rows: a list of dicts, each dict a row keyed by column name.
+-        fmt: the output format. Currently only "csv" is supported.
++        fmt: the output format. One of "csv" or "json".
+ 
+     Returns:
+         The formatted report as a string.
+@@ -28,5 +29,7 @@ def export_rows(rows, fmt):
+             writer.writerows(rows)
+         return output.getvalue()
+ 
+-    # TODO: json export format is not implemented
++    if fmt == "json":
++        return json.dumps(rows, indent=2)
++
+     raise ValueError(f"unsupported format: {fmt}")

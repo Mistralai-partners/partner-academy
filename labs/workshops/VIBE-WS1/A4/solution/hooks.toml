@@ -1,0 +1,22 @@
+# hooks.toml: reference pre-tool hook (A4 solution, branch b)
+#
+# Install by copying this file to:  .vibe/hooks.toml  in the repo root.
+# Project hooks require the folder to be trusted (use --trust on the vibe run, or a
+# persisted trusted folder). A user-level equivalent is ~/.vibe/hooks.toml.
+#
+# IMPORTANT: `command` MUST use an ABSOLUTE path to block_writes.py. Relative paths
+# are not reliable because the hook runs with the invocation's cwd. Edit the path
+# below to point at YOUR copy of block_writes.py before using this file.
+
+[[hooks]]
+name = "block-writes"
+type = "pre_tool"
+# fnmatch glob / re: regex, case-insensitive, matched against the tool name.
+match = "write_file|edit"
+# Absolute path required. Replace /ABS/PATH/TO with your real location.
+command = "uv run python /ABS/PATH/TO/solution/block_writes.py"
+timeout = 60.0
+# strict only matters if the hook itself errors; our hook always exits 0, so a
+# clean deny does not depend on strict. Left false to match the default.
+strict = false
+description = "Deny all write_file and edit tool calls (read-only reviewer posture)."

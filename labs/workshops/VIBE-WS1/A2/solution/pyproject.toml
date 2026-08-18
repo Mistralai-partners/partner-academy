@@ -1,0 +1,17 @@
+[project]
+name = "csv-report"
+version = "0.1.0"
+description = "A small internal reporting utility."
+requires-python = ">=3.9"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+csv-report = "csv_report.cli:main"
+
+# Lets pytest import the package from src/ without an install step.
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

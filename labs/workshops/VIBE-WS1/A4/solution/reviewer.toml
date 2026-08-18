@@ -1,0 +1,36 @@
+# reviewer.toml: reference read-only agent profile (A4 solution, branch a)
+#
+# Install by copying this file to:  ~/.vibe/agents/reviewer.toml
+# (User-level agents live in ~/.vibe/agents/. Project-level agents live in
+#  .vibe/agents/ but require a trusted folder.)
+#
+# Invoke with:  vibe -p "..." --agent reviewer ...
+#
+# Least privilege by posture: this profile ALLOW-LISTS only read tools. Because
+# enabled_tools is an allow-list, write_file, edit, and bash are simply not available
+# to the model. The model cannot edit the branch even if a prompt tells it to.
+
+agent_type = "agent"
+display_name = "Read-only Reviewer"
+description = "Reviews diffs and summarizes risks. Cannot write, edit, or run shell."
+safety = "safe"
+active_model = "mistral-medium-latest"
+
+# Allow-list: only these tools exist for this agent. read_file + grep are enough to
+# read a diff and search the tree. Everything else (write_file, edit, bash, task, ...)
+# is excluded by omission.
+enabled_tools = ["read_file", "grep"]
+
+# Belt and suspenders: even inside the allow-list, require these to run without a
+# prompt so the headless run does not block. read_file and grep are non-mutating.
+[tools.read_file]
+permission = "always"
+
+[tools.grep]
+permission = "always"
+
+# --- Alternative posture (deny-list) -------------------------------------------
+# If you prefer a deny-list instead of an allow-list, drop enabled_tools above and
+# use this instead. The allow-list is stricter and preferred for a reviewer.
+#
+# disabled_tools = ["write_file", "edit", "bash"]
