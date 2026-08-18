@@ -1,11 +1,16 @@
-"""Trigger the hello-world workflow with the Python SDK.
+"""Trigger the hello-world workflow from the client side.
 
-Requires a running worker (see README) and MISTRAL_API_KEY in your environment.
+Requires a running worker (start it with the scaffold's `make start-worker`) and
+MISTRAL_API_KEY in your environment.
 """
-import mistralai.workflows as workflows
+import os
 
-result = workflows.execute_workflow(
+from mistralai.client import Mistral
+
+client = Mistral(api_key=os.environ["MISTRAL_API_KEY"])
+
+execution = client.workflows.execute_workflow(
     workflow_identifier="hello-world",
     input={"name": "World"},
 )
-print("Result:", result)
+print(execution.model_dump_json(indent=2))

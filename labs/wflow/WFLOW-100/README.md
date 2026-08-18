@@ -21,10 +21,11 @@ the platform, not standalone.
    ```
 3. **Use the workflow in this lab:** copy `src/workflows/hello.py` into your
    scaffolded project's `src/workflows/`, replacing the generated example.
-4. **Run it:** start the worker with the scaffold's `make start-worker` in one
-   terminal, then trigger an execution in another:
+4. **Run it:** start the worker (the scaffold registers workflows and polls via
+   `workflows.run_worker`) with `make start-worker` in one terminal, then trigger an
+   execution in another:
    - CLI: `make execute workflow=hello-world input='{"name": "World"}'`
-   - SDK: `uv run python run_client.py`
+   - SDK: `uv run python run_client.py` (uses `client.workflows.execute_workflow`)
 
 ## Done when
 
