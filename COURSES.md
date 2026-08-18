@@ -24,9 +24,9 @@ Facilitated workshop lab bundles (each workshop has several activities: `A1`, `A
 
 | Lab folder | Workshop | Code |
 |---|---|---|
-| `labs/workshops/MAIS-WS1` | Mistral AI Studio Workshop | MAIS-WS1 |
-| `labs/workshops/VIBE-WS1` | Mistral Vibe for Code Workshop | VIBE-WS1 |
-| `labs/workshops/VWORK-WS1` | Mistral Vibe Work Workshop | VWORK-WS1 |
-| `labs/workshops/WFLOW-WS1` | Mistral AI Studio Workflows Workshop | WFLOW-WS1 |
+| `workshops/MAIS-WS1` | Mistral AI Studio Workshop | MAIS-WS1 |
+| `workshops/VIBE-WS1` | Mistral Vibe for Code Workshop | VIBE-WS1 |
+| `workshops/VWORK-WS1` | Mistral Vibe Work Workshop | VWORK-WS1 |
+| `workshops/WFLOW-WS1` | Mistral AI Studio Workflows Workshop | WFLOW-WS1 |
 
 The Deployment workshop (DEPLOY-WS1) runs against a self-hosted environment and is in the private repository; request access from your Mistral partner contact.
