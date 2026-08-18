@@ -202,11 +202,11 @@ def _make_tool_result(tool_call_id, payload):
 def run_allowed_turn(client, agent_id):
     """Run the allowed order-status turn and resolve any tool call."""
     prompt = "Where is order #A-1042?"
-    # Guardrail attached on the conversation call as well as at the agent level.
+    # Guardrails are attached at the agent level (see agents.create). The conversations
+    # API does not accept a per-call guardrails= argument, so it is not passed here.
     response = client.beta.conversations.start(
         inputs=prompt,
         agent_id=agent_id,
-        guardrails=[GUARDRAIL],
     )
     calls = _tool_calls(response)
     conversation_id = getattr(response, "conversation_id", None) or getattr(
@@ -247,12 +247,11 @@ def run_disallowed_turn(client, agent_id):
             "financial advice. I can help you check an order status instead."
         )
     else:
-        # If the local gate somehow passed, still send with the guardrail attached so
-        # the agent-level and call-level guardrail can act.
+        # If the local gate somehow passed, still send it; the agent-level guardrail
+        # can act. (The conversations API does not accept a per-call guardrails=.)
         response = client.beta.conversations.start(
             inputs=prompt,
             agent_id=agent_id,
-            guardrails=[GUARDRAIL],
         )
         assistant_text = _assistant_text(response)
         blocked, reason = local_risk_check(client, assistant_text)

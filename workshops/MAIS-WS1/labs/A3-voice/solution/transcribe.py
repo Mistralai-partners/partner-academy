@@ -42,8 +42,10 @@ def main():
         model="voxtral-mini-latest",
         file={"file_name": SAMPLE_FILE, "content": content},
         language="en",
-        context_bias=DOMAIN_TERMS,
+        # context_bias items must be whitespace/comma-free; split multi-word terms.
+        context_bias=[w for t in DOMAIN_TERMS for w in t.split()],
         diarize=True,
+        timestamp_granularities=["segment"],
     )
 
     text = response.text
