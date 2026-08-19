@@ -40,7 +40,7 @@ from datetime import timedelta
 from pydantic import BaseModel
 
 import mistralai.workflows as workflows
-# [VERIFY] shipped WFLOW course material also shows a standalone activity_heartbeat(...) alias; context7 live docs use activity.heartbeat(...)
+# Liveness API: the heartbeat is the top-level workflows.activity_heartbeat(...) (sync); there is no activity.heartbeat(...).
 from mistralai.workflows import activity
 
 
@@ -122,7 +122,7 @@ async def confirm_order(request: ConfirmRequest) -> ConfirmResult:
     steps = 12
     for i in range(steps):
         await asyncio.sleep(1)
-        activity.heartbeat({"processed": i + 1, "total": steps})
+        workflows.activity_heartbeat({"processed": i + 1, "total": steps})
 
     # Idempotent side effect: the confirmation is derived only from order_id, so
     # a retry is safe to repeat and converges to the same observable state.

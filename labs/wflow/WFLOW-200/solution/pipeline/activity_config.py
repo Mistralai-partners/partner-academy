@@ -8,7 +8,7 @@ concerns map to three decorator arguments:
   unresponsive call blocks indefinitely.
 - `retry_policy_max_attempts` + `retry_policy_backoff_coefficient` — retry a transient
   failure automatically with exponential backoff (2.0 doubles the delay each attempt).
-- `heartbeat_timeout` — for a long call, require periodic `activity.heartbeat(...)` so the
+- `heartbeat_timeout` — for a long call, require periodic `workflows.activity_heartbeat(...)` so the
   platform can fail-fast a stalled attempt instead of waiting out the full timeout.
 
 Grounded in: building-workflows/activities/basics.md (Timeouts / Retry policies / Heartbeat).
@@ -32,7 +32,7 @@ async def fetch_quote(symbol: str) -> dict:
     """Call a flaky pricing API. Timeout caps the attempt; retries cover transient failures;
     the heartbeat lets the platform detect a stall before the full timeout elapses."""
     # A real implementation would call the pricing API here and heartbeat during long work:
-    #   activity.heartbeat({"symbol": symbol})
+    #   workflows.activity_heartbeat({"symbol": symbol})
     return {"symbol": symbol, "price": 100.0}
 
 

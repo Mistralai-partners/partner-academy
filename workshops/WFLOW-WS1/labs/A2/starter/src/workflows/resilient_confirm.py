@@ -24,8 +24,8 @@ from datetime import timedelta
 from pydantic import BaseModel
 
 import mistralai.workflows as workflows
-# `activity` is imported for you: the liveness fix uses activity.heartbeat(...).
-# [VERIFY] shipped WFLOW course material also shows a standalone activity_heartbeat(...) alias; context7 live docs use activity.heartbeat(...)
+# `workflows` is imported for you: the liveness fix uses workflows.activity_heartbeat(...).
+# Liveness API: the heartbeat is the top-level workflows.activity_heartbeat(...) (sync); there is no activity.heartbeat(...).
 from mistralai.workflows import activity # noqa: F401 (used once you add heartbeats)
 
 
