@@ -29,6 +29,7 @@ Facilitated workshop labs live under `workshops/<CODE>-WS1/labs/<A1..>/` with `s
 - **`uv`** (the labs run with `uv run`; no manual venv needed) and **Python 3.11+**.
 - A **Mistral account** and an API key exported as `MISTRAL_API_KEY` (or a local `.env` with `MISTRAL_API_KEY=...`). Some MAIS labs use specific models (e.g. `mistral-large-latest`, `voxtral-mini-latest`); if your account lacks one, that task fails with a model error; ask your Mistral contact to enable it.
 - Network access to PyPI (the first `uv run` downloads pinned dependencies).
+- **On Windows:** run the labs inside **WSL2** or **Git Bash** (the checkers are bash scripts and Vibe Code targets UNIX-like shells).
 
 ### The loop (every lab)
 1. `cd` into the lab folder.
