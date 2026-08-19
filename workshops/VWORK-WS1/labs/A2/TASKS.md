@@ -1,5 +1,7 @@
 # A2: Author and invoke a Skill · TASKS
 
+> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
+
 - **Objective:** author a reusable Skill from a real recurring task and invoke it to produce a consistent, expected artifact.
 
 - **Scenario (why this matters on the job):** you run the same formatting chore weekly. Capturing it once as a Skill means you, and your teammates, produce the identical shape every time without re-briefing.

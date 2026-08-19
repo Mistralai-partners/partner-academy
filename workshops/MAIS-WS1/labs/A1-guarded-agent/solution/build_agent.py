@@ -13,8 +13,8 @@ The guardrail is attached in TWO places: at the agent level and on the risky
 conversation call. That is the teaching point of this activity.
 
 Run:
-  uv run --no-project --with 'mistralai>=2.7' --with python-dotenv python build_agent.py
-  uv run --no-project --with 'mistralai>=2.7' --with python-dotenv python build_agent.py --selftest
+  uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python build_agent.py
+  uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python build_agent.py --selftest
 """
 
 import argparse

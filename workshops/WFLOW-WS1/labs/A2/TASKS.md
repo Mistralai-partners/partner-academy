@@ -1,5 +1,7 @@
 # A2 - Make It Resilient: Timeouts, Retries, and Heartbeats
 
+> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
+
 - WFLOW-WS1-A2 - resilient-activity - 40 minutes
 
 ## What you will build

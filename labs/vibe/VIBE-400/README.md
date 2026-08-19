@@ -3,6 +3,8 @@
 
 # VIBE-400 Lab - Extend and Operate Vibe Code (Expert)
 
+> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
+
 Hands-on lab for **Mistral Vibe for Code Expert (VIBE-400)**. This is the
 Create-tier build lab: you *extend* the Vibe Code agent loop with hooks,
 *design* least-privilege agent profiles and a team permission posture, and

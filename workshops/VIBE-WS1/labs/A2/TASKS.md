@@ -1,5 +1,7 @@
 # A2: Edit under review to a passing test
 
+> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
+
 ## What you will do
 
 - You will drive an interactive `vibe` session to add one feature to a small

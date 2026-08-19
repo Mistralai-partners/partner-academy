@@ -4,7 +4,7 @@ Starter skeleton. Fill the TODOs to make verify.py exit 0. The skeleton imports
 cleanly, and verify.py --selftest passes offline before you fill anything in.
 
 Run:
-    uv run --no-project --with 'mistralai>=2.7' --with python-dotenv python transcribe.py
+    uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python transcribe.py
 """
 
 import json

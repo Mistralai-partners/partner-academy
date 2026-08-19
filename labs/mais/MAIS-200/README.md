@@ -3,6 +3,8 @@
 
 # MAIS-200 Lab - Mistral AI Studio Intermediate
 
+> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
+
 Real, runnable SDK lab for **Mistral AI Studio Intermediate (MAIS-200)**, the L200
 (Apply) tier of the Mistral partner-enablement catalog. It replaces click-through worked examples
 with five everyday build tasks the learner runs against the live Mistral API using

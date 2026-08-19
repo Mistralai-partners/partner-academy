@@ -10,7 +10,7 @@ Flow:
   5. Write the validated record to extracted.json.
 
 Run:
-  uv run --no-project --with 'mistralai>=2.7' --with python-dotenv \
+  uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv \
       --with pydantic --with reportlab python extract_invoice.py
 
 You need MISTRAL_API_KEY in your environment or a .env file, and sample_invoice.pdf
@@ -23,7 +23,7 @@ from dotenv import load_dotenv
 from pydantic import BaseModel
 
 # This repo family imports the client as `from mistralai.client import Mistral`
-# (confirmed working against mistralai>=2.7). Some builds also expose the top-level
+# (confirmed working against mistralai==2.9.3). Some builds also expose the top-level
 # alias `from mistralai import Mistral`. If this import ever fails on the build you
 # install, switch to the top-level form.
 from mistralai.client import Mistral

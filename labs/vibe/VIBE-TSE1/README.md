@@ -3,6 +3,8 @@
 
 # VIBE-TSE1 Lab - Mistral Vibe for Code, Tech Sales Essentials
 
+> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
+
 Dual-modality lab for **Mistral Vibe for Code - Tech Sales Essentials
 (VIBE-TSE1)**. For GSI, ISV, and hyperscaler pre-sales consultants. Two halves:
 the **live demo** a technical seller performs on a customer's repo with the real

@@ -1,5 +1,7 @@
 # A4: Diagnose a Nondeterminism Failure in a Scheduled Workflow
 
+> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
+
 - **Activity code:** WFLOW-WS1-A4 (determinism-debug)
 - **Time:** 45 minutes
 

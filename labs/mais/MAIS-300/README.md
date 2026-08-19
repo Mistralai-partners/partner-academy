@@ -3,6 +3,8 @@
 
 # MAIS-300 Lab — Mistral AI Studio Advanced (hands-on)
 
+> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
+
 Real, runnable lab for **Mistral AI Studio Advanced (MAIS-300, L300)**. Replaces the
 in-course click-through with an Analyze-tier **debug-and-tune** exercise against the
 Python `mistralai` SDK: streaming event handling, client-side concurrency + retry,

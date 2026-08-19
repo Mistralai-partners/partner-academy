@@ -12,8 +12,8 @@ The guardrail must be attached in TWO places: at the agent level and on the risk
 conversation call.
 
 Run:
-  uv run --no-project --with 'mistralai>=2.7' --with python-dotenv python build_agent.py --selftest
-  uv run --no-project --with 'mistralai>=2.7' --with python-dotenv python build_agent.py
+  uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python build_agent.py --selftest
+  uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python build_agent.py
 """
 
 import argparse

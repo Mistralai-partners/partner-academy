@@ -11,8 +11,8 @@ Two checks must both pass:
 Exit code is 0 only when both hold. Otherwise it is 1.
 
 Run:
-  uv run --no-project --with 'mistralai>=2.7' --with python-dotenv python verify.py
-  uv run --no-project --with 'mistralai>=2.7' --with python-dotenv python verify.py --selftest
+  uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python verify.py
+  uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python verify.py --selftest
 
 The messages read like an incident report. They point you at the evidence in the
 output. They do not hand you the code fix. Trace it from the output, not the source.

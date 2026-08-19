@@ -3,6 +3,8 @@
 
 # WFLOW-100 Lab: your first durable workflow
 
+> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
+
 The hands-on companion to WFLOW-100. You scaffold a Workflows project, define a
 minimal `hello-world` workflow, run a worker, and trigger your first execution.
 These steps run in your own shell and need `uv`, network access, and a Mistral

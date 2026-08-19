@@ -34,9 +34,9 @@ Both acceptance checks pass and `verify.py` exits 0:
 Work in the `starter/` folder. Run the offline self-test first, then build, then verify.
 
 ```
-uv run --no-project --with 'mistralai>=2.7' --with python-dotenv python build_agent.py --selftest
-uv run --no-project --with 'mistralai>=2.7' --with python-dotenv python build_agent.py
-uv run --no-project --with 'mistralai>=2.7' --with python-dotenv python verify.py
+uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python build_agent.py --selftest
+uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python build_agent.py
+uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python verify.py
 ```
 
 The reference answer is in `solution/`. Open it only after you attempt the tasks.

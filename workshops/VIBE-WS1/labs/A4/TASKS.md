@@ -1,5 +1,7 @@
 # A4 Tasks: Run Vibe Code you can trust unattended
 
+> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
+
 ## Behavior this lab builds
 
 - You will make `vibe` run headless as a CI-style read-only reviewer that is structurally

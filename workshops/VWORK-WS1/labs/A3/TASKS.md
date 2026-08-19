@@ -1,5 +1,7 @@
 # A3: Connect and use · TASKS
 
+> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
+
 - **Objective:** connect an external tool under a least-privilege scope and use the connected action inside a task.
 
 - **Scenario (why this matters on the job):** real tasks need live inputs from your systems of record. Doing that safely means granting the minimum scope and confirming the *right* item came back.

@@ -3,6 +3,8 @@
 
 # WFLOW-200 Lab — Mistral Workflows Intermediate (L200)
 
+> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
+
 Hands-on lab for **Mistral Workflows Intermediate (WFLOW-200)**. Five **build** tasks exercising
 the Apply skills the course grades: define a workflow and its activity, configure an activity's
 timeout / retries / heartbeat, interact with a running workflow through signals / queries /

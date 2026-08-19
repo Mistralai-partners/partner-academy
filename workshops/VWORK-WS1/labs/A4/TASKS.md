@@ -1,5 +1,7 @@
 # A4: Automate and govern · TASKS
 
+> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
+
 - **Objective:** compose a durable automation that runs unattended inside an approval posture, and prove the posture blocks a disallowed send.
 
 - **Scenario (why this matters on the job):** automation is only safe if the human stays in the loop on anything that leaves your control. You build the refresh and then prove the guardrail.

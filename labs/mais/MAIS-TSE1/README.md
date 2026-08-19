@@ -3,6 +3,8 @@
 
 # MAIS-TSE1 Lab - Mistral AI Studio Tech Sales Essentials
 
+> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
+
 Real, runnable, dual-modality lab for **Mistral AI Studio Tech Sales Essentials
 (MAIS-TSE1)**, the technical-sales tier of the Mistral partner-enablement catalog.
 A technical seller's job is to **scope, demo, and answer feasibility** - so this

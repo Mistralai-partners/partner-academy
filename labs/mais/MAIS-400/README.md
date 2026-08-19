@@ -3,6 +3,8 @@
 
 # MAIS-400 Lab - Mistral AI Studio Expert
 
+> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
+
 Real, runnable SDK lab for **Mistral AI Studio Expert (MAIS-400)**, the L400
 (Evaluate/Create) tier of the Mistral partner-enablement catalog. It replaces a
 click-through walkthrough with six expert tasks the learner runs against the live

@@ -1,5 +1,7 @@
 # A3 - Interact With a Running Workflow: Signals, Queries, Updates
 
+> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
+
 - **Code:** WFLOW-WS1-A3 (interact-workflow) - **Time:** 35 min - **Complexity:** Complex
 
 ## What you will build

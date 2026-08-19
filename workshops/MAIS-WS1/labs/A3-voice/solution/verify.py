@@ -9,8 +9,8 @@ Selftest mode: run offline against a canned passing transcript and a canned
 failing one to prove the checker logic. Exit 0.
 
 Run:
-    uv run --no-project --with 'mistralai>=2.7' --with python-dotenv python verify.py --selftest
-    uv run --no-project --with 'mistralai>=2.7' --with python-dotenv python verify.py
+    uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python verify.py --selftest
+    uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python verify.py
 """
 
 import argparse

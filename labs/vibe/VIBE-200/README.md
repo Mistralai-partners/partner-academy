@@ -3,6 +3,8 @@
 
 # VIBE-200 Lab - Mistral Vibe for Code Intermediate
 
+> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
+
 Hands-on lab for **Mistral Vibe for Code Intermediate (VIBE-200)**. Replaces the
 in-course click-through with real CLI practice on the everyday development loop:
 explore, fix, generate, review, and tune a small project with the Vibe CLI.

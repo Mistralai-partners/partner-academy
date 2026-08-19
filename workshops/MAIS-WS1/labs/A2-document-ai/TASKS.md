@@ -1,5 +1,7 @@
 # A2 Tasks: Document to Structured Data
 
+> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
+
 ## Before you start
 
 - **Behavior you are building:** a pipeline that turns one invoice PDF into a structured
@@ -16,7 +18,7 @@ Work in the `starter/` folder. The full command to run any script with its
 dependencies is:
 
 ```
-uv run --no-project --with 'mistralai>=2.7' --with python-dotenv \
+uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv \
     --with pydantic --with reportlab python <file>
 ```
 
@@ -103,7 +105,7 @@ models have a method that parses a JSON string directly into a validated instanc
 
 ```
 # 1. Extract (needs your MISTRAL_API_KEY and sample_invoice.pdf).
-uv run --no-project --with 'mistralai>=2.7' --with python-dotenv \
+uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv \
     --with pydantic --with reportlab python extract_invoice.py
 
 # 2. Verify the written record.

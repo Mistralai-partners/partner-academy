@@ -5,7 +5,7 @@ Voxtral transcription with context_bias set to the domain terms. Context bias
 boosts recognition of product names and ids that are easy to mis-hear.
 
 Run:
-    uv run --no-project --with 'mistralai>=2.7' --with python-dotenv python transcribe.py
+    uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python transcribe.py
 """
 
 import json

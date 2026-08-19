@@ -31,7 +31,7 @@ exits 0 only when the bar is met. It exits 1 otherwise.
 To prove the checker itself works before you run against the API, run it offline:
 
 ```
-uv run --no-project --with 'mistralai>=2.7' --with python-dotenv python verify.py --selftest
+uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python verify.py --selftest
 ```
 
 That runs the checker against a canned passing transcript and a canned failing
