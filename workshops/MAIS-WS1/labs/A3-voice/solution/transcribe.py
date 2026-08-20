@@ -63,8 +63,8 @@ def main():
 
     # segments is a list of TranscriptionSegmentChunk, each with start/end/text and,
     # when diarization runs, a speaker_id. Count distinct speaker_id values as turns.
-    # A single-speaker clip yields one (or zero) speaker, so the verify speaker check
-    # stays conditional and is skipped when no diarization data is present.
+    # This clip is a two-speaker dialogue (customer and agent), so diarization
+    # returns two distinct speaker_id values and the verify speaker check enforces them.
     segments = getattr(response, "segments", None) or []
 
     speakers = set()

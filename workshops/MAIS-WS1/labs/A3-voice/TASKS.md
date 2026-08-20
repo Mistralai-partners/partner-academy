@@ -54,8 +54,8 @@ uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python <file>
   ```
   uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python make_sample_audio.py
   ```
-- Hint (evidence): Open `make_sample_audio.py` and read `SAMPLE_SCRIPT`. Those are
-  the exact terms the checker will look for. The clip is single-speaker by design.
+- Hint (evidence): Open `make_sample_audio.py` and read `TURNS`. Those are the
+  exact terms the checker will look for. The clip is a two-speaker dialogue by design.
 - Acceptance: The command writes `sample.mp3` and prints its byte size.
 
 ## Task 2: Transcribe and write the artifact

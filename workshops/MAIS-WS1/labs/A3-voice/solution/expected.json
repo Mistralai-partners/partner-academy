@@ -6,5 +6,5 @@
     "refund",
     "escalation"
   ],
-  "min_speaker_turns": 1
+  "min_speaker_turns": 2
 }

@@ -60,7 +60,7 @@ def check(transcript, expected):
     else:
         messages.append(
             "Note: no speaker-turn data present, so the diarization check is skipped. "
-            "This is expected for a single-speaker synthetic clip."
+            "The sample is a two-speaker dialogue, so confirm diarize was requested if you see this."
         )
 
     if ok:

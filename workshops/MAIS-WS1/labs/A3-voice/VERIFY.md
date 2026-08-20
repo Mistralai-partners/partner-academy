@@ -9,12 +9,11 @@ Your transcript is accepted when both conditions hold:
 - Every expected domain keyword appears in the transcript text, matched
    case-insensitively. The keywords live in `expected.json` under
    `expected_keywords`: Voxtral, AI Studio, A-1042, refund, escalation.
-- Speakers are separated when diarization data is present. This condition is
-   conditional. If the response carries per-segment speaker data, the checker
-   requires at least `min_speaker_turns` distinct speakers (2). If no speaker
-   data is present, the checker skips this part and says so. The synthetic
-   sample is single-speaker, so expect the speaker check to be skipped unless
-   you supply richer audio.
+- Speakers are separated by diarization. The synthetic sample is a two-speaker
+   dialogue (a customer and an agent), so the response carries per-segment speaker
+   data and the checker requires at least `min_speaker_turns` distinct speakers (2).
+   If no speaker data is present the checker skips this part, which would signal
+   diarization did not run.
 
 `verify.py` reads `transcript.json` and `expected.json`, applies both rules, and
 exits 0 only when the bar is met. It exits 1 otherwise.
