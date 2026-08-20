@@ -1,7 +1,5 @@
 # A4 Tasks: Run Vibe Code you can trust unattended
 
-> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
-
 ## Behavior this lab builds
 
 - You will make `vibe` run headless as a CI-style read-only reviewer that is structurally
@@ -47,7 +45,7 @@ incapable of editing the branch or overspending. You will prove it with an empty
 
      ```sh
      mkdir -p ~/.vibe/agents
-     cp ../path/to/solution/reviewer.toml ~/.vibe/agents/reviewer.toml
+     cp ~/partner-academy/workshops/VIBE-WS1/labs/A4/solution/reviewer.toml ~/.vibe/agents/reviewer.toml
      ```
 
    - Branch (b), pre-tool hook. Copy the hook into the project and set the ABSOLUTE
@@ -55,8 +53,8 @@ incapable of editing the branch or overspending. You will prove it with an empty
 
      ```sh
      mkdir -p .vibe
-     cp ../path/to/solution/hooks.toml .vibe/hooks.toml
-     # then edit .vibe/hooks.toml: replace /ABS/PATH/TO with the real absolute path
+     cp ~/partner-academy/workshops/VIBE-WS1/labs/A4/solution/hooks.toml .vibe/hooks.toml
+     # then edit .vibe/hooks.toml: set the command path to ~/partner-academy/workshops/VIBE-WS1/labs/A4/solution/block_writes.py
      ```
 
 - Confirm headless mode works at all with a trivial run.
@@ -166,5 +164,5 @@ incapable of editing the branch or overspending. You will prove it with an empty
 
 ## Next
 
-- Continue to **VIBECODE-400** for the full treatment of Vibe Code configuration layers,
+- Continue to **VIBE-400** for the full treatment of Vibe Code configuration layers,
 permission scopes, hooks, and multi-surface unattended operation.

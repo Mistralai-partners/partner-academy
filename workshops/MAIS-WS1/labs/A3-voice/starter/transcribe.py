@@ -18,7 +18,9 @@ from mistralai.client import Mistral
 SAMPLE_FILE = "sample.mp3"
 TRANSCRIPT_FILE = "transcript.json"
 
-# The domain terms that matter for this support-call transcript.
+# The domain terms that matter for this support-call transcript. These are what the
+# acceptance check looks for in the transcript TEXT, so keep the full phrase
+# "AI Studio" here.
 DOMAIN_TERMS = ["Voxtral", "AI Studio", "A-1042", "refund", "escalation"]
 
 
@@ -36,15 +38,24 @@ def main():
     with open(SAMPLE_FILE, "rb") as f:
         content = f.read()
 
-    # TODO: set context_bias for the domain terms
+    # TODO: set context_bias for the domain terms.
+    # Contract: each context_bias item must be a single token with no whitespace and
+    # no commas. A multiword name like "AI Studio" is rejected as-is, so split it into
+    # "AI" and "Studio". The transcript text still reads back "AI Studio"; only this
+    # bias list is tokenized. Aim for something like:
+    #   ["Voxtral", "AI", "Studio", "A-1042", "refund", "escalation"]
     context_bias_unset = []
 
+    # diarize=True requires timestamp_granularities=["segment"]: segment timing is what
+    # the model uses to attribute speaker turns, so the API rejects diarization without
+    # it. This is API contract, not part of the exercise, so it is already wired in.
     response = client.audio.transcriptions.complete(
         model="voxtral-mini-latest",
         file={"file_name": SAMPLE_FILE, "content": content},
         language="en",
         context_bias=context_bias_unset,
         diarize=True,
+        timestamp_granularities=["segment"],
     )
 
     # TODO: extract the transcript and speaker turns into transcript.json

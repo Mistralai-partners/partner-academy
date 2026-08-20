@@ -13,8 +13,9 @@ name = "block-writes"
 type = "pre_tool"
 # fnmatch glob / re: regex, case-insensitive, matched against the tool name.
 match = "write_file|edit"
-# Absolute path required. Replace /ABS/PATH/TO with your real location.
-command = "uv run python /ABS/PATH/TO/solution/block_writes.py"
+# Absolute path required. This example assumes partner-academy is cloned into your
+# home directory; adjust it if your checkout lives elsewhere.
+command = "uv run python ~/partner-academy/workshops/VIBE-WS1/labs/A4/solution/block_writes.py"
 timeout = 60.0
 # strict only matters if the hook itself errors; our hook always exits 0, so a
 # clean deny does not depend on strict. Left false to match the default.

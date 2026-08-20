@@ -9,8 +9,10 @@ The script does two things against the live Mistral API:
   2. Runs a disallowed turn that mixes a card number and an investment question, and
      proves the guardrail blocks it.
 
-The guardrail is attached in TWO places: at the agent level and on the risky
-conversation call. That is the teaching point of this activity.
+Attach the guardrail at the agent level. The conversations API rejects a per-call
+guardrails= argument, so you also run a local moderation gate on every turn as
+defense-in-depth. That local gate is what demonstrably blocks the disallowed turn.
+That is the teaching point of this activity.
 
 Run:
   uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python build_agent.py
@@ -202,8 +204,9 @@ def _make_tool_result(tool_call_id, payload):
 def run_allowed_turn(client, agent_id):
     """Run the allowed order-status turn and resolve any tool call."""
     prompt = "Where is order #A-1042?"
-    # Guardrails are attached at the agent level (see agents.create). The conversations
-    # API does not accept a per-call guardrails= argument, so it is not passed here.
+    # This conversation runs on the agent (agent_id), so its guardrail comes from the
+    # agent; passing a per-call guardrails= alongside agent_id is rejected. It is set
+    # on agents.create instead.
     response = client.beta.conversations.start(
         inputs=prompt,
         agent_id=agent_id,
@@ -247,8 +250,9 @@ def run_disallowed_turn(client, agent_id):
             "financial advice. I can help you check an order status instead."
         )
     else:
-        # If the local gate somehow passed, still send it; the agent-level guardrail
-        # can act. (The conversations API does not accept a per-call guardrails=.)
+        # If the local gate somehow passed, still send the turn to the agent so its
+        # agent-level guardrail can act. The conversations API rejects a per-call
+        # guardrails= argument, so it is not passed here.
         response = client.beta.conversations.start(
             inputs=prompt,
             agent_id=agent_id,

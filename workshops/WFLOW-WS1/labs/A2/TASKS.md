@@ -1,7 +1,5 @@
 # A2 - Make It Resilient: Timeouts, Retries, and Heartbeats
 
-> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
-
 - WFLOW-WS1-A2 - resilient-activity - 40 minutes
 
 ## What you will build
@@ -93,7 +91,7 @@ its own verifier. It does not depend on any other activity in the workshop.
 - Scenario: One attempt accepts the call and then wedges. It never returns on
   its own.
 - Hint: Add a `heartbeat_timeout` that is much shorter than how long the wedge
-  lasts. Then make the healthy work loop call `workflows.activity_heartbeat(...)` on every
+  lasts. Then make the healthy work loop call `activity.heartbeat(...)` on every
   iteration so a slow-but-healthy loop is not mistaken for a wedged one. The
   loop already marks where the liveness signal belongs.
 - Acceptance: The wedged attempt is given up on quickly and retried, and the
@@ -147,7 +145,7 @@ its own verifier. It does not depend on any other activity in the workshop.
 
 - You made an activity survive a downstream that both errors and hangs, using
 `start_to_close_timeout`, a deliberate retry policy with exponential backoff,
-and `heartbeat_timeout` plus periodic `workflows.activity_heartbeat(...)` calls. You also
+and `heartbeat_timeout` plus periodic `activity.heartbeat(...)` calls. You also
 proved recovery happened via retry rather than luck, and you reasoned about why a
 bigger timeout is not a substitute for a heartbeat.
 

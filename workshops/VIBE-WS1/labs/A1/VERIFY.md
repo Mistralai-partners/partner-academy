@@ -22,7 +22,7 @@ modified, this check fails.
 ### Check 2 - The plan names the required targets
 
 ```bash
-python /ABS/PATH/TO/solution/verify/plan_check.py my-change-plan.md
+python ~/partner-academy/workshops/VIBE-WS1/labs/A1/solution/verify/plan_check.py my-change-plan.md
 ```
 
 - Must print `PASS`. The checker confirms your plan names the required target set:

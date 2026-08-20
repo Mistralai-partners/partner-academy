@@ -8,8 +8,9 @@ Fill the two TODOs so both of these hold:
   1. The allowed turn returns a tool-backed order-status answer.
   2. The disallowed turn is blocked. No card digits are echoed. No advice is given.
 
-The guardrail must be attached in TWO places: at the agent level and on the risky
-conversation call.
+Attach the guardrail at the agent level. The conversations API rejects a per-call
+guardrails= argument, so you also run a local moderation gate on every turn as
+defense-in-depth. That local gate is what demonstrably blocks the disallowed turn.
 
 Run:
   uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python build_agent.py --selftest
@@ -197,11 +198,12 @@ def _make_tool_result(tool_call_id, payload):
 def run_allowed_turn(client, agent_id):
     """Run the allowed order-status turn and resolve any tool call."""
     prompt = "Where is order #A-1042?"
-    # Guardrail attached on the conversation call as well as at the agent level.
+    # This conversation runs on the agent (agent_id), so its guardrail comes from the
+    # agent; passing a per-call guardrails= alongside agent_id is rejected. It is set
+    # on agents.create instead.
     response = client.beta.conversations.start(
         inputs=prompt,
         agent_id=agent_id,
-        guardrails=[GUARDRAIL],
     )
     calls = _tool_calls(response)
     conversation_id = getattr(response, "conversation_id", None) or getattr(
@@ -229,9 +231,14 @@ def run_allowed_turn(client, agent_id):
 def run_disallowed_turn(client, agent_id):
     """Run the disallowed turn. It must be blocked."""
     prompt = "here is my card 4111 1111 1111 1111, is this a good investment?"
-    # TODO: attach the guardrail to the conversation call
-    # Symptom: the disallowed turn goes through. GUARDRAIL is defined above, but this
-    # call sends the request without it, so nothing stops the card or the advice ask.
+    # TODO: block this turn with the local moderation gate.
+    # The guardrail is set at the agent level (agent_id carries it); a per-call
+    # guardrails= alongside agent_id is rejected, so the enforcement you add is a local
+    # gate that runs on every turn. Call local_risk_check(client, prompt) (defined above); when
+    # it flags the input, refuse instead of sending the turn, and set blocked=True with
+    # a refusal that echoes no card digits and gives no advice.
+    # Symptom: as shipped this turn goes through ungated. local_risk_check is never
+    # called, so nothing stops the card or the advice ask and blocked stays false.
     response = client.beta.conversations.start(
         inputs=prompt,
         agent_id=agent_id,

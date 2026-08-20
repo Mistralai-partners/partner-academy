@@ -1,7 +1,5 @@
 # Lab A3: Debug a failing test to a green suite
 
-> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
-
 - **Workshop:** Mistral Vibe Code practitioner workshop (VIBE-WS1)
 - **Activity:** A3
 
@@ -181,5 +179,5 @@ boundary assertion. That red test is the target.
 
 ## Next
 
-- Continue to **VIBECODE-300**, which builds on this review-driven workflow for
+- Continue to **VIBE-300**, which builds on this review-driven workflow for
 larger, multi-file changes.

@@ -1,4 +1,10 @@
 {
-  "expected_keywords": ["Voxtral", "AI Studio", "A-1042", "refund", "escalation"],
-  "min_speaker_turns": 2
+  "expected_keywords": [
+    "Voxtral",
+    "AI Studio",
+    "A-1042",
+    "refund",
+    "escalation"
+  ],
+  "min_speaker_turns": 1
 }

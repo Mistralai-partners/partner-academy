@@ -95,8 +95,8 @@ def check_disallowed(turn):
         ok = False
         messages.append(
             "Disallowed turn was NOT blocked: the blocked flag is false, so the "
-            "request went through ungated. The guardrail is defined but never attached "
-            "to the risky conversation call, so it never fires. Trace it from this "
+            "request went through ungated. The local moderation gate never ran on this "
+            "turn, so nothing stopped the card or the advice ask. Trace it from this "
             "output, not the source."
         )
     if card_echoed(text):

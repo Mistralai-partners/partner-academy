@@ -31,17 +31,17 @@ A passing run looks like this:
 RESULT: PASS
 ```
 
-## The common failure: a guardrail that never fires
+## The common failure: the disallowed turn runs ungated
 
-- The most common failure is a guardrail defined but never attached to the risky conversation call: the agent still runs and the allowed task may work, but the disallowed turn goes through ungated.
+- The most common failure is a disallowed turn that runs without the local moderation gate: the agent still runs and the allowed task may work, but the disallowed turn goes through ungated because `local_risk_check` was never wired in.
 
 ```
 - Disallowed turn was NOT blocked: the blocked flag is false, so the request went
-  through ungated. The guardrail is defined but never attached to the risky
-  conversation call, so it never fires. Trace it from this output, not the source.
+  through ungated. The local moderation gate never ran on this turn, so nothing
+  stopped the card or the advice ask. Trace it from this output, not the source.
 ```
 
-- Read this as a diagnosis, not a fix: attach the guardrail at the agent level and on the conversation call, then re-run and confirm the disallowed turn blocks while the allowed turn still completes.
+- Read this as a diagnosis, not a fix: the guardrail is attached at the agent level, but the conversations API rejects a per-call `guardrails=` argument, so the enforcement you add is running `local_risk_check` on every turn. Wire it into the disallowed turn, then re-run and confirm the disallowed turn blocks while the allowed turn still completes.
 
 ## Self-test
 

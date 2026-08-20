@@ -1,7 +1,5 @@
 # A1 - Read before you write: plan a change you never make · TASKS
 
-> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
-
 - **Objective:** explore an unfamiliar Python repo in the read-only
 `plan` agent, use @-file references to focus the agent on the refund path, and
 produce a correct change-plan that names the exact files, functions, and the test
@@ -20,7 +18,7 @@ read-only planning pass gives you that plan with zero risk of an accidental edit
 
 - **Done when:** all 3 checks pass.
 - `git status` in your working copy is clean (no files changed).
-- `python /ABS/PATH/TO/solution/verify/plan_check.py my-change-plan.md` prints PASS.
+- `python ~/partner-academy/workshops/VIBE-WS1/labs/A1/solution/verify/plan_check.py my-change-plan.md` prints PASS.
 - Your saved `my-change-plan.md` names the same target files and functions as
    `solution/change-plan.md` (that is what check 2 confirms).
 
@@ -162,7 +160,7 @@ the repo is untouched.
 
 ```bash
 git status
-python /ABS/PATH/TO/solution/verify/plan_check.py my-change-plan.md
+python ~/partner-academy/workshops/VIBE-WS1/labs/A1/solution/verify/plan_check.py my-change-plan.md
 ```
 
 - **Hint:** if `plan_check.py` prints FAIL with missing symbols, go back to Step 4
@@ -201,4 +199,4 @@ from reading the code, not from any ability to change it.
   the test to add, before any code is written.
 
 - **Next:** go deeper on planning and safe execution across surfaces in
-**VIBECODE-300**.
+**VIBE-300**.

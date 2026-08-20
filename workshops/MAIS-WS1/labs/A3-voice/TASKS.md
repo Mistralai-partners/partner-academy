@@ -1,7 +1,5 @@
 # A3 tasks: Voice Transcription with an Acceptance Check
 
-> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
-
 ## Behavior you build
 
 You transcribe a support call with Voxtral and prove the transcript meets an
@@ -67,15 +65,17 @@ uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python <file>
 - Scenario: Downstream summarization consumes a structured transcript, not a raw
   API response. You produce that artifact.
 - Fill the TODOs in `starter/transcribe.py`:
-  - Set `context_bias` for the domain terms.
+  - Set `context_bias` for the domain terms. Each item must be a single token with
+    no whitespace and no commas, so split "AI Studio" into "AI" and "Studio".
   - Extract the transcript text and speaker turns into `transcript.json`.
 - Command:
   ```
   uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python transcribe.py
   ```
 - Hint (evidence): The response has a `.text` field and an optional `.segments`
-  list. Read `expected.json` to see which terms and how many speaker turns the
-  bar requires.
+  list. `diarize=True` needs `timestamp_granularities=["segment"]` next to it (already
+  wired in the starter call). Read `expected.json` to see which terms and how many
+  speaker turns the bar requires.
 - Acceptance: The command writes `transcript.json` and prints it.
 
 ## Task 3: Meet the acceptance bar
@@ -115,7 +115,7 @@ uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python <file>
   that surface.
 - Note on setup: the realtime surface needs the realtime extra:
   ```
-  uv run --no-project --with 'mistralai[realtime]==2.9.3' --with python-dotenv python <your_script>
+  uv run --no-project --with 'mistralai[realtime]>=2.7' --with python-dotenv python <your_script>
   ```
 - Hint (evidence): Feed the same `sample.mp3` in and capture the spoken reply.
   Transcribe the reply and reuse the same keyword check idea to confirm the agent

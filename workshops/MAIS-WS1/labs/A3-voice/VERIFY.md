@@ -51,6 +51,13 @@ Diagnose it, do not paper over it:
 - Ask why the model missed a known, business-critical term. Short, unusual, or
   branded terms carry little acoustic context, so the model guesses common words.
 - Bias the model toward the terms you know are coming. The transcription call
-  accepts a list of terms for exactly this purpose. Adding the term to that list
-  raises the odds it is recognized. Lengthening or re-recording the input does
-  not address the root cause.
+  accepts a list of terms (`context_bias`) for exactly this purpose. Adding the term
+  to that list raises the odds it is recognized. Lengthening or re-recording the input
+  does not address the root cause.
+- Mind the `context_bias` contract: each item must be a single token with no
+  whitespace and no commas. A multiword name like "AI Studio" is rejected as-is, so
+  split it into "AI" and "Studio". The transcript text still reads back the full
+  phrase, so the acceptance keyword "AI Studio" is unaffected.
+- If you enable diarization, pass `timestamp_granularities=["segment"]` alongside
+  `diarize=True`. Segment timing is what the model uses to attribute speaker turns,
+  so the API rejects diarization without it.

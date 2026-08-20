@@ -1,8 +1,9 @@
 """Transcribe the sample support call with Voxtral and write transcript.json.
 
 This is the reference solution. It mints sample.mp3 if it is missing, then calls
-Voxtral transcription with context_bias set to the domain terms. Context bias
-boosts recognition of product names and ids that are easy to mis-hear.
+Voxtral transcription with context_bias set to the domain terms, tokenized so each
+item is whitespace-free and comma-free. Context bias boosts recognition of product
+names and ids that are easy to mis-hear.
 
 Run:
     uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python transcribe.py
@@ -20,8 +21,16 @@ SAMPLE_FILE = "sample.mp3"
 TRANSCRIPT_FILE = "transcript.json"
 
 # Domain terms that matter for this support-call transcript. These are the same
-# terms the acceptance check expects, and the same terms we boost with context_bias.
+# terms the acceptance check expects in the transcript text, including the phrase
+# "AI Studio" that the caller actually speaks.
 DOMAIN_TERMS = ["Voxtral", "AI Studio", "A-1042", "refund", "escalation"]
+
+# context_bias has a stricter contract than the acceptance list. Each item must be
+# a single token with no whitespace and no commas, so a multiword product name like
+# "AI Studio" is rejected as-is. Split multiword terms into their component words so
+# each one biases recognition on its own. The transcript text still reads back the
+# full phrase "AI Studio"; only the bias list is tokenized.
+CONTEXT_BIAS = ["Voxtral", "AI", "Studio", "A-1042", "refund", "escalation"]
 
 
 def ensure_sample():
@@ -38,28 +47,29 @@ def main():
     with open(SAMPLE_FILE, "rb") as f:
         content = f.read()
 
+    # diarize=True requires timestamp_granularities=["segment"]: segment timing is
+    # what the model uses to attribute speaker turns, so the API rejects diarization
+    # without it. context_bias takes the tokenized, whitespace-free list.
     response = client.audio.transcriptions.complete(
         model="voxtral-mini-latest",
         file={"file_name": SAMPLE_FILE, "content": content},
         language="en",
-        # context_bias items must be whitespace/comma-free; split multi-word terms.
-        context_bias=[w for t in DOMAIN_TERMS for w in t.split()],
+        context_bias=CONTEXT_BIAS,
         diarize=True,
         timestamp_granularities=["segment"],
     )
 
     text = response.text
 
-    # segments is a confirmed response field: an optional list of segment chunks,
-    # each with id/start/end/text. Per-segment speaker attribution is not confirmed,
-    # so the speaker-turn count stays conditional. If a speaker attribute is present,
-    # count distinct speakers. Otherwise leave the count at 0 and let verify skip the
-    # speaker check.
+    # segments is a list of TranscriptionSegmentChunk, each with start/end/text and,
+    # when diarization runs, a speaker_id. Count distinct speaker_id values as turns.
+    # A single-speaker clip yields one (or zero) speaker, so the verify speaker check
+    # stays conditional and is skipped when no diarization data is present.
     segments = getattr(response, "segments", None) or []
 
     speakers = set()
     for seg in segments:
-        speaker = getattr(seg, "speaker", None)  # [VERIFY] per-segment speaker attribute name
+        speaker = getattr(seg, "speaker_id", None)  # TranscriptionSegmentChunk.speaker_id
         if speaker is not None:
             speakers.add(speaker)
     speaker_turns = len(speakers)

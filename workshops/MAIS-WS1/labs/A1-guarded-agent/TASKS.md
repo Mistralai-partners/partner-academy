@@ -1,11 +1,9 @@
 # Tasks: Build a Guarded Agent
 
-> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
-
 ## Behavior you build
 
 - A fintech support agent that completes an allowed order-status task and refuses a disallowed request mixing a card number with an investment question.
-- The guardrail is attached at the agent level and on the risky conversation call.
+- The guardrail is attached at the agent level. The conversations API rejects a per-call `guardrails=` argument, so a local moderation gate runs on every turn as defense-in-depth, and that local gate is what blocks the disallowed request.
 
 ## Prerequisites
 
@@ -79,13 +77,15 @@ uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python verify
 
 ## Task 4: Make the disallowed turn actually block
 
-- **Objective:** Diagnose why the disallowed turn is not blocked and attach the
-  guardrail so it fires.
+- **Objective:** Diagnose why the disallowed turn is not blocked and wire in the
+  local moderation gate so it fires.
 - **Scenario:** A guardrail that exists in the file but never runs is a false sense of
   safety. In a fintech product that gap leaks a card number or ships bad advice.
-- **Hint:** The checker says the guardrail is defined but never attached to the risky
-  conversation call. Compare the allowed turn and the disallowed turn. One attaches the
-  guardrail. One does not. The evidence is the blocked flag reading false.
+- **Hint:** The agent-level guardrail is already set, and the conversations API rejects
+  a per-call `guardrails=` argument, so the enforcement you add is the local gate. The
+  disallowed turn sends the request without ever calling `local_risk_check`. Call it on
+  the prompt and refuse when it flags the input. The evidence is the blocked flag reading
+  false.
 - **Acceptance:** In the next run, the disallowed turn shows `blocked: True`, echoes no
   card digits, and gives no advice. The disallowed check passes.
 
@@ -113,7 +113,7 @@ uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python verify
   - Give the orchestrator agent a handoff to the specialist. The agents API accepts a
      `handoffs=` list on `agents.create`. `[VERIFY]` the exact `handoffs=` field name and
      the id or object shape it expects in your installed version.
-  - Attach the same guardrail at both agents and on the conversation call.
+  - Attach the same guardrail at both agents, and run the local moderation gate on every turn, including after the handoff.
   - Send the disallowed prompt through the orchestrator so it routes to the specialist.
 - **Hint:** Watch the disallowed turn after the handoff. If the specialist answers
   without the guardrail, the block disappears. The evidence is the blocked flag on the
