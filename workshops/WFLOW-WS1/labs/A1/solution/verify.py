@@ -246,9 +246,13 @@ def live():
         fail(
             f"execution {execution_id} did not reach {TERMINAL_OK} within "
             f"{POLL_TIMEOUT_S}s (last status: {status}).",
-            "Is the worker still running and processing tasks? A worker that "
-            "registered the workflow but then stopped leaves executions stuck "
-            "before a terminal status.",
+            "Two common causes. (1) The worker stopped processing tasks: confirm "
+            "`make start-worker` is still running. (2) This is the unfinished "
+            "starter: `confirm_order` still returns None, and because the activity "
+            "is typed `-> str`, the platform rejects the None result and retries the "
+            "workflow task, so the execution never reaches COMPLETED and sits at "
+            "RUNNING. If the worker is up, complete the `# TODO` in confirm_order so "
+            "the activity returns the confirmation string, then re-run.",
         )
 
     if result is None:

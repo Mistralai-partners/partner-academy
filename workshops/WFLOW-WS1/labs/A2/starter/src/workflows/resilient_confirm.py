@@ -25,8 +25,7 @@ from pydantic import BaseModel
 
 import mistralai.workflows as workflows
 # `workflows` is imported for you: the liveness fix uses workflows.activity_heartbeat(...).
-# Liveness API: the heartbeat is the top-level workflows.activity_heartbeat(...) (sync); there is no activity.heartbeat(...).
-from mistralai.workflows import activity # noqa: F401 (used once you add heartbeats)
+# Liveness API: the heartbeat is the top-level workflows.activity_heartbeat(...) (sync).
 
 
 WORKFLOW_NAME = "resilient_confirm"

@@ -54,15 +54,16 @@ see in A1:
 - **"the trigger was rejected ... workflow unknown."** No worker has registered
   the name yet, or the registered name differs from what was triggered. Confirm
   `make start-worker` is running and that its startup log lists `confirm-order`.
-- **"reached COMPLETED but returned None."** The worker registered the workflow
-  and the entrypoint ran, but nothing came back. The activity fell through
-  without returning. This is the expected failure for the unfinished starter:
-  complete the `# TODO` in `confirm_order`.
 - **"reached COMPLETED but returned <value>, expected <value>."** The wiring
   works, but the activity is computing the wrong confirmation string. Match it to
   the expected result above.
-- **"did not reach COMPLETED within Ns."** The worker is not running or stopped
-  processing tasks. Confirm the worker terminal is still up.
+- **"did not reach COMPLETED within Ns" (last status: RUNNING).** Two common
+  causes. First, the worker stopped processing tasks: confirm `make start-worker`
+  is still up. Second, and this is the expected failure for the unfinished
+  starter: `confirm_order` still returns None, and because the activity is typed
+  `-> str`, the platform rejects the None result and retries the workflow task, so
+  the execution never reaches COMPLETED and sits at RUNNING. Complete the `# TODO`
+  in `confirm_order` so the activity returns the confirmation string, then re-run.
 - **"could not import confirm_order.py."** A syntax or import error in the
   workflow file. Because the worker discovers workflows by importing files under
   `src/workflows/`, the same error would stop the worker from registering the
@@ -70,8 +71,8 @@ see in A1:
 
 ## Verification notes
 
-- The SDK surfaces used by `verify.py` are confirmed against the live Mistral
-Workflows docs:
+- The SDK surfaces used by `verify.py` are confirmed against the live Mistral AI
+Studio Workflows docs:
 
 - Trigger: `client.workflows.execute_workflow(workflow_identifier=..., input=...,
   execution_id=...)`. The harness supplies its own `execution_id` so it can poll
