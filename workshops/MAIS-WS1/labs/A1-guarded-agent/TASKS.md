@@ -111,8 +111,8 @@ uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python verify
 - **Steps:**
   - Create a specialist agent, for example a returns agent, with its own instructions.
   - Give the orchestrator agent a handoff to the specialist. The agents API accepts a
-     `handoffs=` list on `agents.create`. `[VERIFY]` the exact `handoffs=` field name and
-     the id or object shape it expects in your installed version.
+     `handoffs=` list on `agents.create`. Verify the exact `handoffs=` field name and
+     the id or object shape it expects in your installed SDK.
   - Attach the same guardrail at both agents, and run the local moderation gate on every turn, including after the handoff.
   - Send the disallowed prompt through the orchestrator so it routes to the specialist.
 - **Hint:** Watch the disallowed turn after the handoff. If the specialist answers

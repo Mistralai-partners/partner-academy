@@ -11,8 +11,9 @@ order-status task still completes.
 ## The one behavior you build
 
 An agent that completes the allowed task (order status) and refuses the disallowed task
-(card handling and investment advice), with the guardrail attached at both the agent
-level and the risky conversation call.
+(card handling and investment advice), with an agent-level guardrail plus an always-on
+`local_risk_check` moderation gate that runs on every turn (the conversations API rejects
+a per-call `guardrails=` argument).
 
 ## Prerequisites
 
@@ -45,8 +46,9 @@ The reference answer is in `solution/`. Open it only after you attempt the tasks
 
 - How to register an agent with instructions, explicit completion args, and one tool.
 - How to return a tool result so a turn is tool-backed.
-- How a guardrail attaches at two layers, and why a guardrail that is defined but not
-  attached fails silently.
+- How enforcement combines an agent-level guardrail with an always-on `local_risk_check`
+  moderation gate on every turn, because the conversations API rejects a per-call
+  `guardrails=` argument, and why a gate that is defined but never wired in fails silently.
 
 ## Next
 

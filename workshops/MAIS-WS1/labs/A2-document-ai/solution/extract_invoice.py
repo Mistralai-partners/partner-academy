@@ -87,10 +87,9 @@ def extract(client: Mistral, document_url: str) -> Invoice:
             },
         },
         # table_format shapes how tables render in the OCR output. Allowed values are
-        # "markdown" and "html". We ingest into a downstream system, so we choose
-        # "html": it preserves table structure for parsing. Use "markdown" when a
-        # person reviews the output instead, because it reads more cleanly.
-        table_format="html",
+        # "markdown" and "html". We use "markdown": it reads cleanly and parses
+        # reliably for line items. The Stretch compares "html".
+        table_format="markdown",
         include_blocks=False,
     )
 

@@ -78,9 +78,9 @@ def extract(client: Mistral, document_url: str) -> Invoice:
                 "strict": True,
             },
         },
-        # table_format allowed values are "markdown" and "html". "html" preserves table
-        # structure for downstream ingestion; "markdown" reads better for human review.
-        table_format="html",
+        # table_format allowed values are "markdown" and "html". "markdown" reads
+        # cleanly and parses reliably for line items; the Stretch compares "html".
+        table_format="markdown",
         include_blocks=False,
     )
 

@@ -120,7 +120,7 @@ uv run --no-project --with 'mistralai==2.9.3' --with python-dotenv python <file>
 - Hint (evidence): Feed the same `sample.mp3` in and capture the spoken reply.
   Transcribe the reply and reuse the same keyword check idea to confirm the agent
   addressed the refund and the escalation.
-- The exact realtime speech-to-speech method is unconfirmed: `[VERIFY]` the
-  realtime speech-to-speech method name in the installed SDK before you rely on it.
+- Verify the realtime speech-to-speech method name in your installed SDK before you
+  rely on it.
 - Acceptance: The spoken response, once transcribed, contains the content terms
   you expect (for example refund and escalation).

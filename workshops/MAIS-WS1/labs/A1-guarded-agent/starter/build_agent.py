@@ -39,7 +39,7 @@ except Exception:  # pragma: no cover - import-shape guard
 
 RESULTS_PATH = Path(__file__).with_name("results.json")
 
-MODEL = "mistral-large-latest"  # [VERIFY] model id available to your account
+MODEL = "mistral-large-latest"  # confirm this model id is available to your account
 
 # Local order database used by the get_order_status tool.
 ORDERS = {
@@ -71,8 +71,8 @@ ORDER_TOOL = {
 # marked. Grounded conceptually on Mistral moderation categories (financial, PII).
 GUARDRAIL = {
     "moderation_llm_v2": {
-        "categories": ["financial", "pii"],  # [VERIFY] inner category enum values
-        "block": True,  # [VERIFY] inner field that turns detection into a hard block
+        "categories": ["financial", "pii"],  # confirm the inner category enum values in your installed SDK
+        "block": True,  # confirm the inner field that turns detection into a hard block in your installed SDK
     }
 }
 
