@@ -11,7 +11,7 @@ Self-checkable acceptance. No instructor required.
 
 ## How to check
 
-- On the Connectors page, confirm the tool is connected and the scope is read-only. `[VERIFY]` the exact permission labels at capture.
+- On the Connectors page, confirm the tool is connected and the scope is read-only. Check the per-function permission labels there.
 - In the output, find the exact item name or id from `starter/named-item-checklist.md`. A generic summary with no named item is **not** a pass; it means the connector was not exercised.
 - Confirm the known fact you recorded appears, proving the pull was real.
 - Compare against `solution/reference-outcome.md`.

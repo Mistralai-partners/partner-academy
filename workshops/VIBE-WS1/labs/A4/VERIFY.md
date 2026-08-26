@@ -43,7 +43,7 @@ prompt said read-only" as evidence.
 
 - Expected: `clean tree (good)`.
 
-> Note on cost: reading a specific cost field from the JSON is **[VERIFY]**. The JSON
+> Note on cost: there is no single cost field to read from this JSON. The JSON
 > array is a message log, not a summary object with a `cost_usd` field. The budget
 > guardrail is enforced by `--max-price`; the true safety proof here is the empty diff
 > plus the absence of write tool calls, not a parsed cost number.
@@ -121,8 +121,9 @@ the model cannot talk its way past:
   tools do not exist for the agent; or
 - a **pre-tool hook** that denies `write_file`/`edit` before the tool ever runs.
 
-- **Common failure and the unblock.** The most common failure is Task 1: the run edits
-files despite a "read-only" prompt, and `git diff` shows the change. The unblock is not a
-stronger prompt. Move the restriction into the agent profile or a pre-tool hook, re-run,
-and confirm the empty diff. If a hook does not fire, check that its `command` uses an
-absolute path and that the folder is trusted (`--trust`).
+- **Common failure and the unblock.** The risk Task 1 exposes is that the run *may* edit
+files despite a "read-only" prompt, and when it does `git diff` shows the change (the model
+may also refuse this time, but the tools stayed enabled, so you cannot count on it). The
+unblock is not a stronger prompt. Move the restriction into the agent profile or a pre-tool
+hook, re-run, and confirm the empty diff. If a hook does not fire, check that its `command`
+uses an absolute path and that the folder is trusted (`--trust`).

@@ -11,10 +11,10 @@
 ## Steps (in-app)
 
 - Read `starter/governance-posture-card.md`: read-only may run unattended; every send is gated.
-- Compose the automation from `starter/automation-skeleton.md`: a scheduled task (choose a frequency) or a Studio workflow. Pre-authorize **read-only steps only**. `[VERIFY]` the exact dialog fields and the pre-authorize control at capture.
-   - *Hint:* do not pre-authorize the send "to make it useful." That is the failure this activity exists to catch.
+- Compose the automation from `starter/automation-skeleton.md`: a scheduled task (choose a frequency) or a Studio workflow. In the scheduled-task dialog, pre-authorize **read-only steps only**.
+   - *Hint:* do not pre-authorize the send "to make it useful." That is the failure this lab exists to catch.
 - Confirm the automation exists and can execute a run (or first / dry run).
-- In a live session, ask Vibe Work to draft and **send** a heads-up message to your safe test destination.
+- In a live session, ask Vibe to draft and **send** a heads-up message to your safe test destination.
 - When the approval prompt appears, read the tool call and its arguments, then click **Reject**.
 - Confirm the response reports the rejected permission and that nothing was sent.
 

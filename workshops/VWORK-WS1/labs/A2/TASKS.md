@@ -10,7 +10,7 @@
 
 ## Steps (in-app)
 
-- Open the Skills area and start a new Skill. `[VERIFY]` the exact create control label on screen.
+- Open the Skills area and use the create-Skill control to start a new Skill.
 - Author the Skill from `starter/skill-skeleton.md`: fill the name, a tightly scoped description or trigger, and instructions that carry the full output contract.
    - *Hint:* the failure to avoid is an over-broad trigger. Scope it to "raw meeting notes to weekly status update," not "summaries."
 - Save the Skill and confirm it appears in the Skills list.

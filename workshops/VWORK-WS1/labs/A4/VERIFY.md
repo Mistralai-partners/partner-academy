@@ -13,11 +13,11 @@ Self-checkable acceptance. No instructor required. This is a **two-part** check;
 - You asked for a send to a safe test destination.
 - The approval prompt appeared showing the tool call and arguments (Allow once / Always allow for this chat / Reject).
 - You clicked **Reject**.
-- The response reports the rejected permission ("The user rejected permission to use this specific tool call") and **no action ran** (nothing sent, nothing created).
+- The response reports the rejected permission ("The user rejected permission to use this specific tool call. Do not retry it.") and **no action ran** (nothing sent, nothing created).
 
 ## How to check
 
-- Confirm the automation is listed and shows a run. `[VERIFY]` the exact run-status indicator at capture.
+- Confirm the automation is listed and shows a run in its run-status indicator.
 - Confirm you can see the send was held and then blocked, with no message delivered to the test destination.
 - Compare against `solution/reference-automation.md` and `solution/expected-rejection.md`.
 
