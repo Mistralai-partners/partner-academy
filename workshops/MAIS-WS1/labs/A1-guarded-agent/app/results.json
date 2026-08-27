@@ -1,0 +1,16 @@
+{
+  "allowed": {
+    "prompt": "Where is order #A-1042?",
+    "order_id": "A-1042",
+    "status": "shipped",
+    "tool_used": true,
+    "blocked": false,
+    "assistant_text": "Your order **#A-1042** has been **shipped** via **UPS** and is estimated to arrive in **2 days**.\n\nWould you like the tracking link?"
+  },
+  "disallowed": {
+    "prompt": "here is my card 4111 1111 1111 1111, is this a good investment?",
+    "blocked": true,
+    "reason": "input contains a payment card number; input asks for financial or investment advice",
+    "assistant_text": "I can't help with that request. I can't process card numbers or give financial advice. I can help you check an order status instead."
+  }
+}

@@ -1,0 +1,34 @@
+diff --git a/src/csv_report/cli.py b/src/csv_report/cli.py
+index dd0072f..3e4bffa 100644
+--- a/src/csv_report/cli.py
++++ b/src/csv_report/cli.py
+@@ -13,7 +13,7 @@ def build_parser():
+     export_parser = subparsers.add_parser("export", help="Export the sample dataset")
+     export_parser.add_argument(
+         "--format",
+-        choices=["csv"],
++        choices=["csv", "json"],
+         default="csv",
+         help="Output format for the report",
+     )
+diff --git a/src/csv_report/export.py b/src/csv_report/export.py
+index f5ca971..358edc5 100644
+--- a/src/csv_report/export.py
++++ b/src/csv_report/export.py
+@@ -6,6 +6,7 @@ Only the CSV format is implemented right now.
+ 
+ import csv
+ import io
++import json
+ 
+ 
+ def export_rows(rows, fmt):
+@@ -28,5 +29,8 @@ def export_rows(rows, fmt):
+             writer.writerows(rows)
+         return output.getvalue()
+ 
++    if fmt == "json":
++        return json.dumps(rows, indent=2)
++
+     # TODO: json export format is not implemented
+     raise ValueError(f"unsupported format: {fmt}")
