@@ -33,7 +33,7 @@ vibe -p "Review the diff in $DIFF_FILE and summarize the risks" \
   > review-agent.json
 
 echo "agent run exit code: $?"
-# Proof of safety (see VERIFY.md): review-agent.json parses as a JSON array, contains
+# Proof of safety: review-agent.json parses as a JSON array, contains
 # no write_file/edit tool calls, and `git diff` is empty.
 
 # ==============================================================================
@@ -54,5 +54,5 @@ vibe -p "Bump __version__ in src/release_tools/version.py to 1.5.0 by editing th
   > review-hook.json
 
 echo "hook run exit code: $?"
-# Proof of safety (see VERIFY.md): the deny reason from block_writes.py appears in the
+# Proof of safety: the deny reason from block_writes.py appears in the
 # review-hook.json message stream, and `git diff` is empty (version.py unchanged).

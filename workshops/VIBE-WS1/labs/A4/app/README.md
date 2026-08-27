@@ -52,4 +52,4 @@ Reference versions of both live alongside this file in `app/` (`reviewer.toml` a
 - The `--output json` array contains no `write_file` or `edit` tool calls (branch a), OR
   the pre-tool hook fired and denied the write (branch b).
 
-See `../TASKS.md` for the step-by-step and `../VERIFY.md` for the acceptance checks.
+The lab walkthrough has the full step-by-step; the pass conditions are listed above.

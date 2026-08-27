@@ -52,4 +52,4 @@ exit 1
 #   1. `git diff` is empty (nothing on the branch changed), and
 #   2. the JSON array contains no write_file/edit tool calls (branch a), or the
 #      pre-tool hook denied them (branch b).
-# See ../VERIFY.md for the exact checks.
+# The exact checks are listed above.
