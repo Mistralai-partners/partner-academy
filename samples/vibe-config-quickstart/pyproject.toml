@@ -1,0 +1,13 @@
+[project]
+name = "vibe-config-quickstart"
+version = "0.1.0"
+description = "A minimal end-to-end Vibe project: 2 agents, 2 skills, 2 instruction files, wired together."
+requires-python = ">=3.11"
+dependencies = []
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

@@ -22,6 +22,8 @@ explore, fix, generate, review, and tune a small project with the Vibe CLI.
 **The project:** `textkit`, a tiny string-helpers package. `app/casing.py` is
 the pattern file every new helper should imitate.
 
+**Putting it together:** once you have done the config, custom-agent, `AGENTS.md`, and skill tasks here, see `samples/vibe-config-quickstart/` (repository root) for one small project that wires all four together, with a short narrated walkthrough.
+
 ## Run it
 
 ```bash

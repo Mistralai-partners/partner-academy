@@ -18,6 +18,16 @@ Each lab folder maps to a Mistral Partner Academy course.
 
 The self-hosted deployment labs (DEPLOY) are in a separate private repository; request access from your Mistral partner contact.
 
+## Samples
+
+Standalone, runnable reference projects (not tied to a single lab).
+
+| Sample | What it shows |
+|---|---|
+| `samples/vibe-demo-app` | A tiny safe practice app to point the Vibe CLI at while doing the labs. |
+| `samples/vibe-config-quickstart` | End-to-end `.vibe/` setup: two custom agents, two skills, and two `AGENTS.md` instruction files, and how they link. Includes a narrated walkthrough video in `dist/`. |
+
+
 ## Workshops
 
 Facilitated workshop lab bundles (each workshop has several activities: `A1`, `A2`, ... with `starter/`, `solution/`, `TASKS.md`, `VERIFY.md`).

@@ -1,0 +1,17 @@
+# Agent #1 - reviewer. The agent name is the file stem: "reviewer".
+# A custom agent packages a prompt, a tool posture, and a safety level under one name.
+# Select it with:  vibe --agent reviewer   (it is also this project's default_agent).
+
+display_name = "Reviewer"
+description = "Read-only code reviewer that applies the project conventions and the security checklist"
+safety = "safe"          # safe | neutral | destructive | yolo
+agent_type = "agent"     # must be "agent" (not "subagent") to be selectable with --agent
+
+# --- overrides: any config field, at the TOP LEVEL (there is no [overrides] table) ---
+
+# Custom instructions. There is NO inline system_prompt key: point at a prompt
+# file instead. system_prompt_id = "reviewer" loads .vibe/prompts/reviewer.md.
+system_prompt_id = "reviewer"
+
+# Whitelist the tools this agent may use: read + search + load skills. No edit/write.
+enabled_tools = ["read_file", "grep", "skill"]

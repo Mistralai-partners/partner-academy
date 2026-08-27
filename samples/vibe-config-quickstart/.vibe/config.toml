@@ -1,0 +1,15 @@
+# Project-local Vibe config. This file is the WIRING that ties the pieces together.
+# Vibe reads ./.vibe/config.toml first, then ~/.vibe/config.toml; the project copy wins.
+# API keys belong in .env, never here.
+
+# Use the read-only reviewer when no --agent is passed. Switch with, e.g.,
+#   vibe --agent test-writer
+default_agent = "reviewer"
+
+# Per-tool permission posture for this project.
+# "always" runs without asking; "ask" prompts first.
+[tools.read_file]
+permission = "always"
+
+[tools.bash]
+permission = "ask"
