@@ -22,10 +22,12 @@ import os
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ROOT = os.path.dirname(HERE)
 
-TARGET = sys.argv[1] if len(sys.argv) > 1 else "solution"
-TARGET_DIR = os.path.join(ROOT, TARGET)
+TARGET = sys.argv[1] if len(sys.argv) > 1 else "."
+if TARGET == ".":
+    TARGET_DIR = HERE
+else:
+    TARGET_DIR = os.path.join(os.path.dirname(HERE), TARGET)
 sys.path.insert(0, TARGET_DIR)  # so `import pipeline.*` resolves to the target tree
 
 _pass = 0
