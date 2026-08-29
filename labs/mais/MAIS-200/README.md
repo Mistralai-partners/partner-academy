@@ -3,49 +3,71 @@
 
 # MAIS-200 Lab - Mistral AI Studio Intermediate
 
-> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
+> **Before you start:** see the repository root `README.md` -> **Running the labs**
+> for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned
+> SDK versions, and a troubleshooting table.
 
-Real, runnable SDK lab for **Mistral AI Studio Intermediate (MAIS-200)**, the L200
-(Apply) tier of the Mistral partner-enablement catalog. It replaces click-through worked examples
-with five everyday build tasks the learner runs against the live Mistral API using
-the `mistralai` Python SDK, each with a deterministic acceptance check.
+Working reference code for **Mistral AI Studio Intermediate (MAIS-200)**, the L200
+(Apply) tier. Five production-ready SDK scripts you read and run, each
+demonstrating a core Studio capability: agents, tool calling, Document AI,
+RAG, and guardrails. This is **working code you read and run**, not a broken
+starter you repair.
 
-- `starter/` - begin here. Each `tN_*.py` has one clearly marked `# TODO` where the
-  real SDK work is missing.
-- `solution/` - reference solutions (all verified live).
-- `verify/check.sh <starter|solution>` - runs all five checks; a task passes when
-  its script exits 0.
-- `tasks.md` - the five tasks, each with objective, scenario, hint, acceptance, and
-  the grounded SDK call.
-- `FACILITATOR.md` - instructor-led facilitation layer (agenda, demo checkpoints,
-  discussion prompts, pitfalls).
+Read the scripts before you run anything:
 
-## Setup
-1. Install [uv](https://docs.astral.sh/uv/).
-2. `cp .env.example .env` and set `MISTRAL_API_KEY` (or export it).
-3. Run a task or the whole suite (pinned SDK, `mistralai==1.9.11`):
-   ```
-   bash verify/check.sh starter     # expect failures until you complete the TODOs
-   bash verify/check.sh solution    # 5 passed, 0 failed
-   ```
+- `app/t1_reliable_agent.py` - build a reliable agent (`beta.agents.create` with
+  `instructions` + `completion_args`).
+- `app/t2_tools_function_result.py` - give an agent a tool and return its result
+  (`FunctionResultEntry` with matching `tool_call_id`).
+- `app/t3_document_to_structured.py` - extract structured data from a document
+  (`ocr.process` + Pydantic `document_annotation_format`).
+- `app/t4_rag_knowledge_base.py` - build a small RAG knowledge base
+  (`mistral-embed` + cosine retrieval + grounded answer).
+- `app/t5_guardrails_moderation.py` - guardrail inputs with the Moderation API
+  (`classifiers.moderate` input gate).
+
+## Get the lab files
+
+```bash
+git clone https://github.com/Mistralai-partners/partner-academy.git
+cd partner-academy/labs/mais/MAIS-200/app
+```
+
+Set `MISTRAL_API_KEY` in your environment (or a `.env` in this folder) for the
+live run steps. Already cloned the repo for another lab? Just `cd` into this
+folder instead.
+
+## Read it, run it, check it
+
+```bash
+# 1. Read the working scripts (start with t1), then run one against the live API:
+uv run --no-project --with 'mistralai==1.9.11' --with python-dotenv python t1_reliable_agent.py
+
+# 2. Run all five live (each hits the real Mistral API):
+for f in t[1-5]_*.py; do
+  uv run --no-project --with 'mistralai==1.9.11' --with python-dotenv python "$f"
+done
+
+# 3. Confirm the end state (offline, no API key needed):
+python3 verify.py                        # RESULT: PASS
+```
+
+`verify.py` is offline and deterministic: it confirms the correct SDK imports,
+function signatures, and API constructor patterns are in place. A green result
+never depends on a live model call.
 
 ## What it covers (course behaviors)
-| Task | Course behavior | Feature |
-|---|---|---|
-| 1 | B1 - reliable agent | `beta.agents.create` with `instructions` + `completion_args` |
-| 2 | B1 - tools + state | function tool + `FunctionResultEntry` + `conversations.append` |
-| 3 | B2 - document extraction | `ocr.process` + `document_annotation_format` (Pydantic) |
-| 4 | B3 - RAG knowledge base | `mistral-embed` + cosine retrieval + grounded/refuse |
-| 5 | B5 - guardrail | `classifiers.moderate` input gate |
 
-Done when `bash verify/check.sh starter` reports **5 passed, 0 failed**.
+| Script | Course behavior | Feature |
+|---|---|---|
+| t1 | B1 - reliable agent | `beta.agents.create` with `instructions` + `completion_args` |
+| t2 | B1 - tools + state | function tool + `FunctionResultEntry` + `conversations.append` |
+| t3 | B2 - document extraction | `ocr.process` + `document_annotation_format` (Pydantic) |
+| t4 | B3 - RAG knowledge base | `mistral-embed` + cosine retrieval + grounded/refuse |
+| t5 | B5 - guardrail | `classifiers.moderate` input gate |
 
 ## Notes
+
 - Pin `mistralai==1.9.11`: 2.x breaks `from mistralai import Mistral`.
-- All SDK calls are grounded in the pinned `platform-docs-public/public/studio-api/`
-  docs (`a3e0f0c79c5566128ccb7b90e51cc0e7517297da`) and context7
-  `/mistralai/client-python`. No invented methods or parameters.
-- Two documented parameters are taught but not called because the pinned SDK does
-  not expose them: `table_format="html"` (Task 3) and the inline `guardrails`
-  parameter (Task 5). Each file explains the gap and uses the supported path.
-- B4 (Voxtral transcription + TTS) is deferred: see the coverage note in `tasks.md`.
+- All SDK calls are grounded in the pinned `platform-docs-public` docs and
+  context7 `/mistralai/client-python`. No invented methods or parameters.
