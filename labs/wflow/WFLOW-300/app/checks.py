@@ -23,7 +23,10 @@ sys.path.insert(0, HERE)  # detlint
 import detlint  # noqa: E402
 
 TARGET = sys.argv[1] if len(sys.argv) > 1 else "solution"
-TARGET_DIR = os.path.join(ROOT, TARGET)
+if TARGET == ".":
+    TARGET_DIR = HERE
+else:
+    TARGET_DIR = os.path.join(ROOT, TARGET)
 sys.path.insert(0, TARGET_DIR)  # so `import pipeline.*` resolves to the target tree
 
 _pass = 0
