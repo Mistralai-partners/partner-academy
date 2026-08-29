@@ -11,11 +11,19 @@ production design (payload offloading + encryption + continue-as-new + activity-
 AES-GCM payload encryption, the activity retry budget, concurrency/scheduling policy choice, and
 child-workflow-vs-activity design.
 
-- `starter/pipeline/` — begin here. Each module has a deliberate expert-level defect or gap.
-- `solution/pipeline/` — reference solution (all checks pass).
-- `verify/check.sh <starter|solution>` — deterministic acceptance checks for all six tasks.
-- `verify/detlint.py` — determinism linter mirroring the SDK sandbox's banned-call list.
-- `tasks.md` — the six tasks and their acceptance checks.
+## Get the lab files
+
+```bash
+git clone https://github.com/Mistralai-partners/partner-academy.git
+cd partner-academy/labs/wflow/WFLOW-400/app
+```
+
+## What's in the box
+
+- `pipeline/` — six solution modules, one per task.
+- `checks.py` — deterministic acceptance checks for all six tasks (real SDK + live AES-GCM).
+- `detlint.py` — AST determinism linter mirroring the SDK sandbox's banned-call list.
+- `verify.py` — one-command runner: fetches the pinned SDK via `uv` and delegates to `checks.py`.
 
 ## The Workflows model (one paragraph)
 
@@ -31,15 +39,14 @@ backoff, concurrency executors, and schedule overlap policy.
 Running a workflow end to end needs the live orchestrator plus a running worker, which is not an
 offline, deterministic self-check. This lab therefore verifies what is genuinely real without the
 orchestrator: **structural validation through the real SDK** (it registers and validates your
-definitions), **live AES-GCM crypto** (Task 3), and **pure logic** (Tasks 4–5). See `tasks.md` for
+definitions), **live AES-GCM crypto** (Task 3), and **pure logic** (Tasks 4-5). See `tasks.md` for
 the full explanation.
 
 ## Run
 
 ```bash
-bash verify/check.sh solution   # 6 passed, 0 failed
-bash verify/check.sh starter    # fails until you complete the tasks
+python3 verify.py          # 6 passed, 0 failed
 ```
 
-No Mistral API key needed. `uv` fetches `mistralai-workflows==3.10.0` and the encryption extra
-automatically. Done when `bash verify/check.sh starter` reports **6 passed, 0 failed**.
+No Mistral API key needed. `uv` fetches `mistralai-workflows[mistralai]==3.10.0` automatically.
+Done when `python3 verify.py` reports **6 passed, 0 failed**.
