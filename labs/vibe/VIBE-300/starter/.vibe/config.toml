@@ -1,4 +1,0 @@
-# Project config. Task 4: the agent cannot run the test suite because bash is denied.
-# Find the least-change fix so the plan/build agent may run read-only bash (e.g. pytest).
-[tools.bash]
-permission = "never"
