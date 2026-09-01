@@ -5,7 +5,7 @@ Run from this folder after reading the working code:
 
     python3 verify.py
 
-Confirms the structural properties of all five task scripts: the correct SDK
+Confirms the structural properties of all eight task scripts: the correct SDK
 imports, function signatures, and API constructor patterns are in place. All
 checks are offline and deterministic (no API key, no network). A live run of
 each script against the real Mistral API is a separate, optional step.
@@ -131,6 +131,60 @@ def check_t5():
     ok("t5 guardrails moderation: Moderation API + category check gate")
 
 
+def check_t6():
+    tree = _parse("t6_transcribe_audio.py")
+    if tree is None:
+        return no("t6_transcribe_audio.py is missing")
+    src = _source("t6_transcribe_audio.py")
+    if not _has_import(tree, "mistralai"):
+        return no("t6: missing mistralai import")
+    if not _has_function(tree, "transcribe"):
+        return no("t6: missing transcribe function")
+    if "transcriptions" not in src:
+        return no("t6: must use client.audio.transcriptions.complete")
+    if "voxtral" not in src.lower():
+        return no("t6: must use a Voxtral model for transcription")
+    ok("t6 transcribe audio: transcriptions.complete + Voxtral model")
+
+
+def check_t7():
+    tree = _parse("t7_text_to_speech.py")
+    if tree is None:
+        return no("t7_text_to_speech.py is missing")
+    src = _source("t7_text_to_speech.py")
+    if not _has_import(tree, "mistralai"):
+        return no("t7: missing mistralai import")
+    if not _has_function(tree, "list_voices"):
+        return no("t7: missing list_voices function")
+    if not _has_function(tree, "synthesize"):
+        return no("t7: missing synthesize function")
+    if "speech" not in src:
+        return no("t7: must use client.audio.speech.complete for TTS")
+    if "voices" not in src:
+        return no("t7: must use client.audio.voices to list available voices")
+    if "base64" not in src:
+        return no("t7: must decode base64 audio_data from the response")
+    ok("t7 text to speech: voices.list + speech.complete + base64 decode")
+
+
+def check_t8():
+    tree = _parse("t8_observe_traffic.py")
+    if tree is None:
+        return no("t8_observe_traffic.py is missing")
+    src = _source("t8_observe_traffic.py")
+    if not _has_import(tree, "mistralai"):
+        return no("t8: missing mistralai import")
+    if not _has_function(tree, "search_events"):
+        return no("t8: missing search_events function")
+    if not _has_function(tree, "build_filter"):
+        return no("t8: missing build_filter function")
+    if "observability" not in src:
+        return no("t8: must use beta.observability.chat_completion_events.search")
+    if "search_params" not in src:
+        return no("t8: must pass search_params with filters to the search call")
+    ok("t8 observe traffic: observability.search + filter builder")
+
+
 def main():
     print("== Verifying MAIS-200 lab ==")
     check_t1()
@@ -138,6 +192,9 @@ def main():
     check_t3()
     check_t4()
     check_t5()
+    check_t6()
+    check_t7()
+    check_t8()
     print(f"\n== {len(passed)} passed, {len(failed)} failed ==")
     print("RESULT: PASS" if not failed else "RESULT: FAIL")
     sys.exit(0 if not failed else 1)

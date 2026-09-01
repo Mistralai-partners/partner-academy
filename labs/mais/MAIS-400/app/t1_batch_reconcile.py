@@ -20,8 +20,8 @@ import sys
 import time
 
 from dotenv import load_dotenv
-from mistralai import Mistral
-from mistralai.models import File
+from mistralai.client import Mistral
+from mistralai.client.models import File
 
 load_dotenv()
 MODEL = "ministral-3b-latest"

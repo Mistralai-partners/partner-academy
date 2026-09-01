@@ -10,7 +10,7 @@ never receives its result and the conversation cannot finish.
 Grounded SDK calls (mistralai==1.9.11, verified live):
   - client.beta.conversations.start(model=..., tools=[...], inputs=...)
         -> outputs[-1].type == "function.call", .name, .arguments, .tool_call_id
-  - FunctionResultEntry(tool_call_id=<same id>, result=<str>)   (from mistralai)
+  - FunctionResultEntry(tool_call_id=<same id>, result=<str>)   (from mistralai.client.models)
   - client.beta.conversations.append(conversation_id=..., inputs=[entry])
         -> outputs[-1].type == "message.output"
 Source: platform-docs-public public/studio-api/agents/handoffs.md +
@@ -21,7 +21,8 @@ import os
 import sys
 
 from dotenv import load_dotenv
-from mistralai import FunctionResultEntry, Mistral
+from mistralai.client import Mistral
+from mistralai.client.models import FunctionResultEntry
 
 load_dotenv()
 MODEL = "mistral-small-latest"
