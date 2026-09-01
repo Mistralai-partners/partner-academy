@@ -1,6 +1,6 @@
 """Task 2 live proof: client-side concurrency + RetryConfig.
 
-Run: uv run --no-project --with 'mistralai==1.9.11' --with python-dotenv \
+Run: uv run --no-project --with 'mistralai==2.9.4' --with python-dotenv \
        python live_concurrency.py
 Grounded: many client.chat.complete_async(...) coroutines gathered with
 asyncio.gather; retries=<RetryConfig> overrides the client retry policy.
@@ -10,7 +10,7 @@ import os
 import time
 
 from dotenv import load_dotenv
-from mistralai import Mistral
+from mistralai.client import Mistral
 
 from mais.concurrency import build_retry_config, should_retry
 

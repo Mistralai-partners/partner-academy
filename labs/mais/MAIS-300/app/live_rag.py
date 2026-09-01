@@ -1,6 +1,6 @@
 """Task 3 live proof: single-corpus RAG (chunk -> embed -> retrieve -> cite).
 
-Run: uv run --no-project --with 'mistralai==1.9.11' --with python-dotenv \
+Run: uv run --no-project --with 'mistralai==2.9.4' --with python-dotenv \
        python live_rag.py
 Grounded (rag_quickstart.md): chunk by characters; embed with
 client.embeddings.create(model="mistral-embed", inputs=[...]) -> data[i].embedding;
@@ -9,7 +9,7 @@ retrieve nearest chunks; ground the answer in the retrieved context.
 import os
 
 from dotenv import load_dotenv
-from mistralai import Mistral
+from mistralai.client import Mistral
 
 from mais.rag import chunk_text, top_k, build_grounded_prompt
 

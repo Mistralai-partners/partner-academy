@@ -1,6 +1,6 @@
 """Task 4 live proof: restart a conversation from an earlier entry.
 
-Run: uv run --no-project --with 'mistralai==1.9.11' --with python-dotenv \
+Run: uv run --no-project --with 'mistralai==2.9.4' --with python-dotenv \
        python live_restart.py
 Grounded: conversations.start / append build a thread; get_history returns ordered
 entries with ids; restart(conversation_id, inputs, from_entry_id) branches into a
@@ -9,7 +9,7 @@ NEW conversation, leaving the original untouched.
 import os
 
 from dotenv import load_dotenv
-from mistralai import Mistral
+from mistralai.client import Mistral
 
 from mais.entries import pick_branch_entry, is_isolated_branch
 

@@ -1,6 +1,6 @@
 """Task 1 live proof: stream a conversation and fold the event stream.
 
-Run: uv run --no-project --with 'mistralai==1.9.11' --with python-dotenv \
+Run: uv run --no-project --with 'mistralai==2.9.4' --with python-dotenv \
        python live_stream.py
 Grounded: client.beta.conversations.start_stream(inputs=..., model=...) ->
 EventStream[ConversationEvents]; each item has .event (type str) and .data.
@@ -8,7 +8,7 @@ EventStream[ConversationEvents]; each item has .event (type str) and .data.
 import os
 
 from dotenv import load_dotenv
-from mistralai import Mistral
+from mistralai.client import Mistral
 
 from mais.streaming import fold_events
 

@@ -1,6 +1,6 @@
 """Single-corpus RAG helpers: chunk -> embed -> cosine retrieve -> grounded prompt.
 
-Grounded on rag_quickstart.md (platform-docs-public @ a3e0f0c7) and mistralai==1.9.11:
+Grounded on rag_quickstart.md (platform-docs-public @ a3e0f0c7) and mistralai==2.9.4:
   - Chunk the corpus by characters (size, plus an overlap to preserve context).
   - Embed with client.embeddings.create(model="mistral-embed", inputs=[...])
     and read vectors from response.data[i].embedding.
