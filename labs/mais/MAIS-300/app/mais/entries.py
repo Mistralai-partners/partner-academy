@@ -1,6 +1,6 @@
 """Restart a conversation from an earlier entry (safe branching).
 
-Grounded (mistralai==1.9.11):
+Grounded (mistralai==2.9.4):
   - client.beta.conversations.get_history(conversation_id=...) returns a
     ConversationHistory whose .entries are the ordered turns, each with an `id`.
   - client.beta.conversations.restart(conversation_id=..., inputs=...,

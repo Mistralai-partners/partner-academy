@@ -1,6 +1,6 @@
 """Embedding storage trade-off: output_dimension x output_dtype -> bytes/vector.
 
-Grounded (mistralai==1.9.11): client.embeddings.create(model="mistral-embed",
+Grounded (mistralai==2.9.4): client.embeddings.create(model="mistral-embed",
 output_dimension=<int>, output_dtype=<"float"|"int8"|"uint8"|"binary"|"ubinary">).
 Reducing the dimension and/or quantizing the dtype trades a little accuracy for a
 large storage/scan saving at corpus scale.

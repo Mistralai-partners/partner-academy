@@ -7,7 +7,7 @@ the real function and feed the answer back with a `FunctionResultEntry` whose
 `tool_call_id` MATCHES the call the model made. Without that matching id the model
 never receives its result and the conversation cannot finish.
 
-Grounded SDK calls (mistralai==1.9.11, verified live):
+Grounded SDK calls (mistralai==2.9.4, verified live):
   - client.beta.conversations.start(model=..., tools=[...], inputs=...)
         -> outputs[-1].type == "function.call", .name, .arguments, .tool_call_id
   - FunctionResultEntry(tool_call_id=<same id>, result=<str>)   (from mistralai.client.models)

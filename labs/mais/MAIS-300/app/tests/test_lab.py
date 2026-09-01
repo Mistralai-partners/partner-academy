@@ -15,15 +15,15 @@ from mais.entries import pick_branch_entry, is_isolated_branch
 from mais.embedding_cost import bytes_per_vector, storage_ratio
 
 # Real SDK types (no network) ------------------------------------------------
-from mistralai.models import (
+from mistralai.client.models import (
     MessageOutputEvent,
     ResponseDoneEvent,
     ResponseErrorEvent,
     FunctionCallEvent,
 )
-from mistralai.models.conversationevents import ConversationEvents
-from mistralai.models.conversationusageinfo import ConversationUsageInfo
-from mistralai.utils import RetryConfig
+from mistralai.client.models.conversationevents import ConversationEvents
+from mistralai.client.models.conversationusageinfo import ConversationUsageInfo
+from mistralai.client.utils import RetryConfig
 
 
 def _wrap(etype, data):

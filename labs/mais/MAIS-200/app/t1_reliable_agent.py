@@ -7,7 +7,7 @@ behavior and predictable output. You give it that with two things at build time:
   - `completion_args`: safe completion settings. temperature=0 makes replies
     deterministic; max_tokens caps length and cost.
 
-Grounded SDK calls (mistralai==1.9.11, verified live):
+Grounded SDK calls (mistralai==2.9.4, verified live):
   - client.beta.agents.create(model=..., name=..., instructions=...,
         completion_args={"temperature": 0, "max_tokens": ...})  -> Agent (.id,
         .instructions, .completion_args.temperature/.max_tokens)

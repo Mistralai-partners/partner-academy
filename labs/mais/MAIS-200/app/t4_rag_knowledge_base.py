@@ -8,7 +8,7 @@ DIRECTION (cosine similarity), not by document order, or you ground the answer o
 the wrong passage. (The managed alternative is the Document Library / built-in
 document tool, which handles chunk/embed/retrieve for you.)
 
-Grounded SDK calls (mistralai==1.9.11, verified live):
+Grounded SDK calls (mistralai==2.9.4, verified live):
   - client.embeddings.create(model="mistral-embed", inputs=[...]).data[i].embedding
   - client.chat.complete(model=..., messages=..., temperature=0)  (grounded answer)
 Source: platform-docs-public public/studio-api/knowledge-rag/rag_quickstart.md +

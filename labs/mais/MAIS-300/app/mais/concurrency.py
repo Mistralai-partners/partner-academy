@@ -1,7 +1,7 @@
 """Client-side concurrency policy and retry configuration for Mistral chat.
 
-Grounded (mistralai==1.9.11):
-  - from mistralai.utils import RetryConfig, BackoffStrategy
+Grounded (mistralai==2.9.4):
+  - from mistralai.client.utils import RetryConfig, BackoffStrategy
       RetryConfig(strategy: str, backoff: BackoffStrategy, retry_connection_errors: bool)
       BackoffStrategy(initial_interval, max_interval, exponent, max_elapsed_time)  # ms
   - retries=<RetryConfig> is accepted by client.chat.complete / complete_async.
@@ -12,7 +12,7 @@ The Analyze skill: an idempotent read like a chat completion should retry only
 TRANSIENT failures (429 + 5xx). Retrying a 4xx client error just burns quota and
 delays the real error surfacing.
 """
-from mistralai.utils import BackoffStrategy, RetryConfig
+from mistralai.client.utils import BackoffStrategy, RetryConfig
 
 
 def build_retry_config() -> RetryConfig:

@@ -37,7 +37,7 @@ Already cloned the repo for another lab? Just `cd` into this folder instead.
 
 ```bash
 # 1. Read the fixed code in mais/ (start with streaming.py), then run the suite:
-uv run --no-project --with 'mistralai==1.9.11' --with pytest \
+uv run --no-project --with 'mistralai==2.9.4' --with pytest \
   python -m pytest tests -q
 
 # 2. Confirm the end state (offline, no API key needed):
@@ -60,6 +60,6 @@ never depends on a live model call.
 
 ## Notes
 
-- Pin `mistralai==1.9.11`: 2.x breaks `from mistralai import Mistral`.
-- The test suite uses real `mistralai.models` event types (no mocks, no fakes).
+- Pin `mistralai==2.9.4` to match the rest of the MAIS family.
+- The test suite uses real `mistralai.client.models` event types (no mocks, no fakes).
 - The `live_*.py` scripts are optional and need `MISTRAL_API_KEY`.

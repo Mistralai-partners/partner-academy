@@ -1,6 +1,6 @@
 """Task 5 live proof: embedding storage trade-off (output_dimension + output_dtype).
 
-Run: uv run --no-project --with 'mistralai==1.9.11' --with python-dotenv \
+Run: uv run --no-project --with 'mistralai==2.9.4' --with python-dotenv \
        python live_embedding_cost.py
 Grounded: client.embeddings.create(model="codestral-embed", output_dimension=...,
 output_dtype=...) returns shorter / quantized vectors. (Note: mistral-embed does
@@ -11,7 +11,7 @@ compare it to bytes_per_vector's estimate.
 import os
 
 from dotenv import load_dotenv
-from mistralai import Mistral
+from mistralai.client import Mistral
 
 from mais.embedding_cost import bytes_per_vector, storage_ratio
 

@@ -9,10 +9,10 @@ JSON string that parses straight into your schema.
 Grounded production note (grounded, not on the pinned SDK): for documents with
 merged-cell tables, `ocr.process(..., table_format="html")` preserves table
 structure instead of flattening it. That parameter is documented (basic_ocr.md)
-but is not exposed in mistralai==1.9.11, so it is omitted from the runnable call
+but is not exposed in mistralai==2.9.4, so it is omitted from the runnable call
 below and taught here only.
 
-Grounded SDK calls (mistralai==1.9.11, verified live):
+Grounded SDK calls (mistralai==2.9.4, verified live):
   - from mistralai.extra import response_format_from_pydantic_model
   - client.ocr.process(model="mistral-ocr-latest",
         document=DocumentURLChunk(document_url=...),

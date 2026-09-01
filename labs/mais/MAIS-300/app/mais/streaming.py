@@ -1,6 +1,6 @@
 """Fold a Mistral conversations event stream into a terminal final state.
 
-Grounded (mistralai==1.9.11): client.beta.conversations.start_stream(...) returns
+Grounded (mistralai==2.9.4): client.beta.conversations.start_stream(...) returns
 an EventStream of ConversationEvents. Each item has:
   - .event : the event-type string, one of
       conversation.response.started / message.output.delta /

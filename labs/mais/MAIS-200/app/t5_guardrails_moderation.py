@@ -10,11 +10,11 @@ benign traffic through.
 Production note (grounded, not runnable on the pinned SDK): the recommended path
 is *custom guardrails* declared inline via the `guardrails` parameter on
 chat/conversations/agents (each using the `moderation_llm_v2` config, and
-inheritable per agent). That parameter is not exposed in mistralai==1.9.11, so
+inheritable per agent). That parameter is not exposed in mistralai==2.9.4, so
 this task builds the same protection with the Moderation API, which the pinned SDK
 supports and which the custom guardrail is built on.
 
-Grounded SDK calls (mistralai==1.9.11, verified live):
+Grounded SDK calls (mistralai==2.9.4, verified live):
   - client.classifiers.moderate(model="mistral-moderation-latest", inputs=[...])
         -> .results[i].categories  (dict category -> bool)
 Source: platform-docs-public public/studio-api/safety-moderation.md (pinned) + context7.

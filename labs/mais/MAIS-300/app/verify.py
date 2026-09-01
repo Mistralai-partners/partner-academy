@@ -25,7 +25,7 @@ def main():
     if uv:
         cmd = [
             uv, "run", "--no-project",
-            "--with", "mistralai==1.9.11", "--with", "pytest",
+            "--with", "mistralai==2.9.4", "--with", "pytest",
             "python", "-m", "pytest", "tests", "-q",
         ]
     else:
