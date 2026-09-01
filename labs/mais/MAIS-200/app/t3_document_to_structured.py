@@ -28,7 +28,8 @@ import sys
 from typing import List
 
 from dotenv import load_dotenv
-from mistralai import DocumentURLChunk, Mistral
+from mistralai.client import Mistral
+from mistralai.client.models import DocumentURLChunk
 from mistralai.extra import response_format_from_pydantic_model
 from pydantic import BaseModel, Field
 
