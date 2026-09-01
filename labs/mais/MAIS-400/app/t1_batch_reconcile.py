@@ -6,7 +6,7 @@ does NOT mean every request succeeded. You must reconcile EVERY custom_id
 across BOTH the output file and the error file, and inspect each row's
 status_code, before you ship the results as complete.
 
-Grounded SDK calls (mistralai==1.9.11, verified live):
+Grounded SDK calls (mistralai==2.9.4, verified live):
   - client.files.upload(file=File(file_name=..., content=...), purpose="batch")
   - client.batch.jobs.create(input_files=[...], model=..., endpoint="/v1/chat/completions")
   - client.batch.jobs.get(job_id=...)              -> .status/.total_requests/.succeeded_requests/.failed_requests/.output_file/.error_file
