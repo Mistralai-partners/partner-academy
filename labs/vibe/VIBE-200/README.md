@@ -1,46 +1,62 @@
 <!-- course-ref -->
 **Course:** Mistral Vibe for Code Intermediate (VIBE-200)
 
-# VIBE-200 Lab - Mistral Vibe for Code Intermediate
+# VIBE-200 Lab - textkit
 
-> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
+> **Before you start:** see the repository root `README.md` -> **Running the labs**
+> for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned
+> tool versions, and a troubleshooting table.
 
-Hands-on lab for **Mistral Vibe for Code Intermediate (VIBE-200)**. Replaces the
-in-course click-through with real CLI practice on the everyday development loop:
-explore, fix, generate, review, and tune a small project with the Vibe CLI.
+A small, working reference project for the everyday Vibe Code loop: explore, fix,
+generate, review, and tune a real repo with the Vibe CLI. This is **working code
+you read and run**, not a broken starter you repair. `textkit` is a tiny
+string-helpers package; `app/casing.py` is the pattern every helper imitates.
 
-- `starter/` - begin here (a buggy helper, a missing helper, an over-broad
-  review agent, and an unfinished `.vibe/` config).
-- `solution/` - reference solution.
-- `verify/check.sh <starter|solution>` - deterministic acceptance checks
-  (pytest, agent scope, project config).
-- `tasks.md` - the five tasks (four machine-checked gates plus one read-only
-  exercise).
-- `FACILITATOR.md` - instructor-led delivery layer (agenda, demo checkpoints,
-  discussion prompts, pitfalls and unblocks).
+The `.vibe/` folder is the point of the lab. Read it before you run anything:
 
-**The project:** `textkit`, a tiny string-helpers package. `app/casing.py` is
-the pattern file every new helper should imitate.
+- `app/.vibe/config.toml` - a fresh session opens on the read-only `plan` agent,
+  and the `bash` tool must ask before it runs. Safe-by-default for a shared repo.
+- `app/.vibe/agents/reviewer.toml` - a read-only review agent (read and search
+  only, no write, no shell).
+- `app/AGENTS.md` - the project conventions Vibe loads on every run (type hints,
+  Google-style docstrings, tests for every helper, scoped edits).
 
 **Putting it together:** once you have done the config, custom-agent, `AGENTS.md`, and skill tasks here, see `samples/vibe-config-quickstart/` (repository root) for one small project that wires all four together, with a short narrated walkthrough.
 
-## Run it
+## Get the lab files
 
 ```bash
-# 1. Install / confirm the CLI and key
-vibe --version          # expect >= 2.24
-export MISTRAL_API_KEY=...   # or `vibe --setup`
-
-# 2. Work the tasks in starter/ (see tasks.md), then check
-cd starter
-bash ../verify/check.sh starter
+git clone https://github.com/Mistralai-partners/partner-academy.git
+cd partner-academy/labs/vibe/VIBE-200/app
 ```
 
-**Done when `bash verify/check.sh starter` reports 4 passed, 0 failed.**
+Set `MISTRAL_API_KEY` in your environment (or a `.env` in this folder) for the
+live `vibe` steps. Already cloned the repo for another lab? Just `cd` into this
+folder instead.
 
-Because this repo ships a `.vibe/` folder, Vibe loads its project config only
-from a trusted directory. Accept the trust prompt in interactive mode, or pass
-`--trust` for non-interactive `-p` runs.
+## Read it, run it, check it
 
-All Vibe commands and flags in this lab are from `vibe --help` (2.24.0) and the
-pinned Vibe Code documentation. No invented flags, paths, or tool names.
+```bash
+# 1. Read the working helpers and the .vibe/ config (above), then run the suite:
+python3 -m pytest -q                     # slugify + truncate are green
+
+# 2. See the read-only reviewer in action (needs MISTRAL_API_KEY):
+vibe --agent reviewer --trust -p "Review app/slugify.py against our conventions" --output text
+
+# 3. Confirm the end state:
+python3 verify.py                        # RESULT: PASS
+```
+
+`verify.py` is offline and deterministic: it confirms the suite is green, the
+reviewer is read-only, and the project defaults are set. A green result never
+depends on a live model call.
+
+## Now try it (optional)
+
+Add a `titlecase` helper the way `app/casing.py` is shaped: hand it to an
+edit-approving agent, keep the change scoped, and ship a test with it.
+
+```bash
+vibe --agent accept-edits --trust -p "Add app/titlecase.py with a titlecase(text) helper shaped like app/casing.py, plus tests/test_titlecase.py; change only those files" --max-turns 8 --output text
+python3 -m pytest -q
+```

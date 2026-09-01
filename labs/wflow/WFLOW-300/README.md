@@ -11,12 +11,20 @@ tasks exercising the Analyze skills the course grades: idempotency under retry, 
 at scale, resilient stream resume via `broker_sequence`, and per-user Connector access with
 on-behalf-of.
 
-- `starter/pipeline/` — begin here. Each module reproduces one production symptom (`# SYMPTOM`).
-- `solution/pipeline/` — reference solution (all checks pass).
-- `verify/check.sh <starter|solution>` — deterministic acceptance checks for all six tasks.
-- `verify/detlint.py` — determinism linter mirroring the SDK sandbox's banned-call list.
-- `tasks.md` — the six tasks, each with objective, scenario, hint, and acceptance.
-- `FACILITATOR.md` — instructor-led delivery (agenda, demos, discussion, pitfalls).
+## Get the lab files
+
+```bash
+git clone https://github.com/Mistralai-partners/partner-academy.git
+cd partner-academy/labs/wflow/WFLOW-300/app
+```
+
+## What's in the box
+
+- `pipeline/` — six solution modules, one per task.
+- `checks.py` — deterministic acceptance checks for all six tasks (real SDK introspection + live logic).
+- `detlint.py` — AST determinism linter mirroring the SDK sandbox's banned-call list.
+- `verify.py` — one-command runner: fetches the pinned SDK via `uv` and delegates to `checks.py`.
+- `FACILITATOR.md` (lab root) — instructor-led delivery (agenda, demos, discussion, pitfalls).
 
 ## The Workflows model (one paragraph)
 
@@ -42,9 +50,8 @@ setting) are labeled in `tasks.md`. No check fakes a pass.
 ## Run
 
 ```bash
-bash verify/check.sh solution   # 6 passed, 0 failed
-bash verify/check.sh starter    # 6 failed until you complete the tasks
+python3 verify.py          # 6 passed, 0 failed
 ```
 
 No Mistral API key needed. `uv` fetches `mistralai-workflows[mistralai]==3.10.0` automatically.
-Done when `bash verify/check.sh starter` reports **6 passed, 0 failed**.
+Done when `python3 verify.py` reports **6 passed, 0 failed**.

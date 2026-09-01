@@ -1,9 +1,0 @@
-# Project-level Vibe configuration for the textkit repo.
-# Loaded only when this folder is trusted (see the trust note in the README).
-#
-# Task 5: this project has no defaults yet. A fresh session opens in whatever
-# global agent you happen to have, and the bash tool inherits its global
-# permission. Set a safe default posture here so a new contributor does not
-# start out able to edit or run commands on the first keystroke.
-#
-# (Add the missing settings below.)

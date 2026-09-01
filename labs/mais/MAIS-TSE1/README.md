@@ -3,62 +3,60 @@
 
 # MAIS-TSE1 Lab - Mistral AI Studio Tech Sales Essentials
 
-> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
+> **Before you start:** see the repository root `README.md` -> **Running the labs**
+> for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned
+> SDK versions, and a troubleshooting table.
 
-Real, runnable, dual-modality lab for **Mistral AI Studio Tech Sales Essentials
-(MAIS-TSE1)**, the technical-sales tier of the Mistral partner-enablement catalog.
-A technical seller's job is to **scope, demo, and answer feasibility** - so this
-lab is a runnable demo the seller executes in front of a customer, plus a
-scoping/qualification exercise with a deterministic rubric.
+Working reference code for **Mistral AI Studio Tech Sales Essentials (MAIS-TSE1)**,
+the technical-sales tier. Four production-ready scripts: two live demos
+(Document AI extraction, RAG grounding) and two offline scoping exercises
+(surface routing, multi-agent judgment). This is **working code you read and
+run**, not a broken starter you repair.
 
-It ships for **both delivery modes**:
-- **Self-paced** (this repo): `starter/` -> fix the bugs -> `verify/check.sh` is
-  green. Done when it reports **4 passed, 0 failed**.
-- **Instructor-led / customer-facing:** `FACILITATOR.md` - how to deliver the two
-  demos live in a customer session (talk track, timing, what to show, objection
-  handling).
+Read the scripts before you run anything:
 
-- `starter/` - begin here. Each `tN_*.py` has a real defect and a `# BUG/# TODO`.
-- `solution/` - reference solutions (all verified live).
-- `verify/check.sh <starter|solution>` - runs all four checks; a task passes when
-  its script exits 0.
-- `assets/invoice.png` - the sample document Task 1 extracts from (self-contained,
-  no external URL).
-- `tasks.md` - the four tasks, each with objective, scenario, hint, and acceptance.
-- `FACILITATOR.md` - the instructor-led / live-demo delivery layer.
+- `app/t1_docai_extract.py` - Document AI extraction (OCR + typed annotations).
+- `app/t2_rag_grounding.py` - RAG grounding vs hallucination (embeddings + chat).
+- `app/t3_scope_surface.py` - scoping: surface routing + feasibility constraints.
+- `app/t4_scope_multiagent.py` - scoping: multi-agent judgment + handoff mode.
+- `assets/invoice.png` - the sample document Task 1 extracts from.
 
-## Setup
-1. Install [uv](https://docs.astral.sh/uv/).
-2. `cp .env.example .env` and set `MISTRAL_API_KEY` (or export it).
-3. Run a task or the whole suite (pinned SDK, `mistralai==1.9.11`):
-   ```
-   bash verify/check.sh starter     # expect failures until you fix the bugs
-   bash verify/check.sh solution    # 4 passed, 0 failed
-   ```
+## Get the lab files
 
-## What it covers (course behaviors)
-| Task | Mode | Course behavior | Capability |
-|---|---|---|---|
-| 1 | Live demo | B4 - Document AI positioning | Document AI Annotations (typed JSON) |
-| 2 | Live demo | B4 - RAG grounding vs hallucination | Embeddings + grounded chat, honest refusal |
-| 3 | Scoping | B1/B2/B4/B5 - surface + feasibility | Surface routing + two feasibility constraints |
-| 4 | Scoping | B3 - right-sizing + handoffs | Multi-agent judgment + `handoff_execution` mode |
+```bash
+git clone https://github.com/Mistralai-partners/partner-academy.git
+cd partner-academy/labs/mais/MAIS-TSE1/app
+```
 
-Done when `bash verify/check.sh starter` reports **4 passed, 0 failed**.
+Set `MISTRAL_API_KEY` (or a `.env` in this folder) for the live demo scripts.
+Already cloned the repo for another lab? Just `cd` into this folder instead.
+
+## Read it, run it, check it
+
+```bash
+# 1. Read the working scripts, then run the Document AI demo:
+uv run --no-project --with 'mistralai==1.9.11' --with pydantic --with python-dotenv \
+  python t1_docai_extract.py
+
+# 2. Run the offline scoping exercises:
+uv run --no-project --with 'mistralai==1.9.11' --with pydantic --with python-dotenv \
+  python t3_scope_surface.py
+
+# 3. Confirm the end state (offline, no API key needed):
+python3 verify.py                        # RESULT: PASS
+```
+
+`verify.py` is offline and deterministic: it confirms the correct SDK imports,
+function signatures, and structural properties. A green result never depends on a
+live model call.
+
+## Workflows demo
+
+MAIS-TSE1 covers positioning durable Workflows (lesson L2.3). The
+`workflows-demo/` subdirectory holds a self-contained Workflows tech-sales demo
+with its own verify harness.
 
 ## Notes
+
 - Pin `mistralai==1.9.11`: 2.x breaks `from mistralai import Mistral`.
-- Tasks 1-2 call the live API with cheap models and tiny inputs; tasks 3-4 are
-  offline decision logic (no API calls, no key needed for those two).
-- All SDK calls and scoping rules are grounded in the pinned
-  `platform-docs-public/public/studio-api/` docs (commit `a3e0f0c7`) and context7
-  `/mistralai/client-python`. No invented APIs, paths, or outputs.
-- No secrets are committed: `.env` is gitignored; only `.env.example` ships.
-
-## Workflows demo (folded from WFLOW-TSE1)
-
-MAIS-TSE1 covers positioning durable Workflows (lesson L2.3). For the hands-on version, `workflows-demo/` holds a self-contained Workflows tech-sales demo: stand up a durable happy-path workflow, make it interactive, and scope a fit honestly. It keeps its own `tasks.md` and verify harness, so run it separately:
-
-```
-bash workflows-demo/verify/check.sh starter   # 4 passed, 0 failed when complete
-```
+- Tasks 1-2 call the live API; tasks 3-4 are offline decision logic.

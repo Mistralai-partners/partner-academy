@@ -3,44 +3,57 @@
 
 # MAIS-400 Lab - Mistral AI Studio Expert
 
-> **Before you start:** see the repository root `README.md` → **Running the labs** for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned SDK versions, the two-terminal worker setup for Workflows labs, and a troubleshooting table. It is the fastest way past a "the code does not work" moment.
+> **Before you start:** see the repository root `README.md` -> **Running the labs**
+> for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned
+> SDK versions, and a troubleshooting table.
 
-Real, runnable SDK lab for **Mistral AI Studio Expert (MAIS-400)**, the L400
-(Evaluate/Create) tier of the Mistral partner-enablement catalog. It replaces a
-click-through walkthrough with six expert tasks the learner runs against the live
-Mistral API using the `mistralai` Python SDK, each with a deterministic
-acceptance check.
+Working reference code for **Mistral AI Studio Expert (MAIS-400)**, the L400
+(Evaluate/Create) tier. Six production-ready SDK scripts covering batch
+operations, caching, retrieval quality, structured output, resilient tool loops,
+and moderation defense. This is **working code you read and run**, not a broken
+starter you repair.
 
-- `starter/` - begin here. Each `tN_*.py` has a real bug and a `# BUG/# TODO`.
-- `solution/` - reference solutions (all verified live).
-- `verify/check.sh <starter|solution>` - runs all six checks; a task passes when
-  its script exits 0.
-- `tasks.md` - the six tasks, with the grounded SDK call and acceptance for each.
+Read the scripts before you run anything:
 
-## Setup
-1. Install [uv](https://docs.astral.sh/uv/).
-2. `cp .env.example .env` and set `MISTRAL_API_KEY` (or export it).
-3. Run a task or the whole suite (pinned SDK, `mistralai==1.9.11`):
-   ```
-   bash verify/check.sh starter     # expect failures until you fix the bugs
-   bash verify/check.sh solution    # 6 passed, 0 failed
-   ```
+- `app/t1_batch_reconcile.py` - batch API with `custom_id` and reconciliation.
+- `app/t2_cache_cost.py` - prompt caching cost diagnosis (offline check).
+- `app/t3_embeddings_rerank.py` - embeddings + cosine re-rank + recall@k / MRR.
+- `app/t4_structured_output.py` - strict `json_schema` structured output.
+- `app/t5_tool_error_loop.py` - function calling with structured error results.
+- `app/t6_moderation_defense.py` - Moderation API on the output path.
 
-## What it covers (course behaviors)
-| Task | Course behavior | Feature |
-|---|---|---|
-| 1 | B1 - batch cost + reconciliation | Batch API, `custom_id`, output/error files |
-| 2 | B1 - caching cost/diagnosis | Prompt caching (offline; SDK-limited, see task 2) |
-| 3 | B4 - retrieval quality | Embeddings, cosine re-rank, recall@k / MRR |
-| 4 | B5 - reliable parsing | Strict `json_schema` structured output |
-| 5 | B5 - resilient tool loops | Function calling with structured error results |
-| 6 | B6 - safety defense-in-depth | Moderation API on the output path |
+## Get the lab files
 
-Done when `bash verify/check.sh starter` reports **6 passed, 0 failed**.
+```bash
+git clone https://github.com/Mistralai-partners/partner-academy.git
+cd partner-academy/labs/mais/MAIS-400/app
+```
+
+Set `MISTRAL_API_KEY` in your environment (or a `.env` in this folder) for the
+live run steps. Already cloned the repo for another lab? Just `cd` into this
+folder instead.
+
+## Read it, run it, check it
+
+```bash
+# 1. Read the working scripts, then run one against the live API:
+uv run --no-project --with 'mistralai==1.9.11' --with python-dotenv python t1_batch_reconcile.py
+
+# 2. Run all six live:
+for f in t[1-6]_*.py; do
+  uv run --no-project --with 'mistralai==1.9.11' --with python-dotenv python "$f"
+done
+
+# 3. Confirm the end state (offline, no API key needed):
+python3 verify.py                        # RESULT: PASS
+```
+
+`verify.py` is offline and deterministic: it confirms the correct SDK imports,
+function signatures, and API constructor patterns are in place. A green result
+never depends on a live model call.
 
 ## Notes
+
 - Pin `mistralai==1.9.11`: 2.x breaks `from mistralai import Mistral`.
-- Task 2 is an offline structural check; its docstring explains why a live cache
-  hit cannot be produced deterministically with the pinned SDK.
-- All SDK calls are grounded in the pinned `platform-docs-public/public/studio-api/`
-  docs and context7 `/mistralai/client-python`.
+- Task 2 is an offline structural check (prompt caching cannot be produced
+  deterministically with the pinned SDK).

@@ -1,4 +1,0 @@
-# Task 3: define a READ-ONLY reviewer sub-agent (no file writes, no shell writes).
-name = "reviewer"
-description = "Reviews code read-only"
-# enabled_tools = [ ... ]   # <-- complete this with read-only tools
