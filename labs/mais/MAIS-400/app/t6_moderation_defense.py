@@ -7,7 +7,7 @@ content and reach the user even though the user's own input was benign.
 Defense in depth means also running the Moderation API on the output / tool-result
 path, not just on the request edge.
 
-Grounded SDK call (mistralai==1.9.11, verified live):
+Grounded SDK call (mistralai==2.9.4, verified live):
   - client.classifiers.moderate(model="mistral-moderation-latest", inputs=[...])
       -> results[0].categories (dict[str,bool]), results[0].category_scores (dict[str,float])
 Source: platform-docs-public public/studio-api/safety-moderation.md

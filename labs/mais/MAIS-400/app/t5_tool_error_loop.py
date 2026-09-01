@@ -7,7 +7,7 @@ result back into the conversation as the tool message, so the model can recover
 and produce a final answer. Raising (or leaving the tool call unanswered) breaks
 the loop and the integration.
 
-Grounded SDK calls (mistralai==1.9.11, verified live):
+Grounded SDK calls (mistralai==2.9.4, verified live):
   - client.chat.complete(model=..., messages=..., tools=..., tool_choice=...)
       -> choices[0].message.tool_calls[i].function.{name, arguments}, .id
   - append {"role": "tool", "name": ..., "content": ..., "tool_call_id": ...}

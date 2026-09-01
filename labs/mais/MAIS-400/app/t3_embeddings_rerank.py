@@ -8,7 +8,7 @@ similarity/ordering bug tanks both metrics even though the code "runs".
 The grounded expert re-rank move is to reorder first-stage candidates by
 embedding cosine similarity - not to reach for an ungrounded dedicated re-ranker.
 
-Grounded SDK call (mistralai==1.9.11, verified live):
+Grounded SDK call (mistralai==2.9.4, verified live):
   - client.embeddings.create(model="mistral-embed", inputs=[...])
       -> response.data[i].embedding (1024-dim), response.data[i].index
 Source: platform-docs-public public/studio-api/knowledge-rag/embeddings.md + context7.

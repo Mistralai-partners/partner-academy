@@ -6,7 +6,7 @@ model's JSON automatically and must never break on a missing field, enforce a
 strict json_schema (additionalProperties=false, all fields required, strict=true).
 Free-form prose or bare JSON mode do not guarantee the shape; a strict schema does.
 
-Grounded SDK call (mistralai==1.9.11, verified live):
+Grounded SDK call (mistralai==2.9.4, verified live):
   - client.chat.complete(model=..., messages=...,
         response_format={"type": "json_schema",
                          "json_schema": {"schema": <schema>, "name": ..., "strict": True}})

@@ -11,7 +11,7 @@ part of the prompt changes each call), or simply the first call for that prefix.
 STRUCTURAL / OFFLINE CHECK - and why:
   The course teaches `prompt_cache_key` plus reading
   `usage.prompt_tokens_details.cached_tokens`. The pinned SDK for this lab
-  (mistralai==1.9.11) does NOT expose a `prompt_cache_key` field on the chat
+  (mistralai==2.9.4) does NOT expose a `prompt_cache_key` field on the chat
   request (verified: it is absent from ChatCompletionRequest.model_fields), and
   automatic prefix caching on this key/model returned cached_tokens=None across
   repeated large-prefix calls (verified live). So a live cache HIT cannot be
