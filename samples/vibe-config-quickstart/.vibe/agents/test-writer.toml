@@ -1,0 +1,20 @@
+# Agent #2 - test-writer. Agent name = file stem: "test-writer".
+# Contrast with the reviewer: this one CAN change files, so it carries a higher
+# safety level and auto-approves edits. Select it with:  vibe --agent test-writer
+
+display_name = "Test Writer"
+description = "Extends the pytest suite; can edit files and run tests"
+safety = "destructive"   # it applies edits automatically, so it is not "safe"
+agent_type = "agent"
+
+system_prompt_id = "test-writer"   # loads .vibe/prompts/test-writer.md
+
+# This agent needs to read, search, edit, write, run tests, and load skills.
+enabled_tools = ["read_file", "grep", "edit", "write_file", "bash", "skill"]
+
+# Auto-approve edits and writes so the agent can work end to end without prompts.
+[tools.edit]
+permission = "always"
+
+[tools.write_file]
+permission = "always"

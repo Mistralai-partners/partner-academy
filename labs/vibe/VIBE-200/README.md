@@ -21,6 +21,8 @@ The `.vibe/` folder is the point of the lab. Read it before you run anything:
 - `app/AGENTS.md` - the project conventions Vibe loads on every run (type hints,
   Google-style docstrings, tests for every helper, scoped edits).
 
+**Putting it together:** once you have done the config, custom-agent, `AGENTS.md`, and skill tasks here, see `samples/vibe-config-quickstart/` (repository root) for one small project that wires all four together, with a short narrated walkthrough.
+
 ## Get the lab files
 
 ```bash
