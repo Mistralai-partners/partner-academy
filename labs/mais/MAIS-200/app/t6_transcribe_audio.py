@@ -16,6 +16,7 @@ Grounded SDK calls (mistralai==2.9.4, verified live 2026-09-01):
     -> .text (plain transcript)
 Source: context7 /mistralai/client-python docs/sdks/transcriptions/README.md.
 """
+import base64
 import os
 import sys
 
@@ -24,6 +25,26 @@ from mistralai.client import Mistral
 
 load_dotenv()
 MODEL = "voxtral-mini-latest"
+TTS_MODEL = "voxtral-mini-tts-2603"
+
+# What we synthesize, then transcribe back. Keeping the phrase here lets the run be
+# fully self-contained (no committed audio fixture) and lets you eyeball that the
+# transcript matches what was spoken.
+SAMPLE_TEXT = "Hello from Mistral Studio, testing text to speech."
+
+
+def make_sample_audio(client, text=SAMPLE_TEXT):
+    """Synthesize a short mp3 with Voxtral TTS so the lab has audio to transcribe
+    without shipping a binary fixture. Returns raw mp3 bytes."""
+    voice = client.audio.voices.list().items[0]
+    resp = client.audio.speech.complete(
+        model=TTS_MODEL,
+        input=text,
+        voice_id=voice.id,
+        response_format="mp3",
+        stream=False,
+    )
+    return base64.b64decode(resp.audio_data)
 
 
 def transcribe(client, audio_bytes, filename="audio.mp3", language="en",
@@ -44,14 +65,10 @@ def transcribe(client, audio_bytes, filename="audio.mp3", language="en",
 def main():
     client = Mistral(api_key=os.environ["MISTRAL_API_KEY"])
 
-    sample_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sample_audio.mp3")
-    if not os.path.exists(sample_path):
-        print("SKIP: no sample_audio.mp3 found (place one here for the live run)")
-        print("TASK6 PASS (structure only)")
-        return
-
-    with open(sample_path, "rb") as f:
-        audio = f.read()
+    # Generate the input audio in-process (TTS), then transcribe it. No fixture file
+    # to clone, and it demonstrates the TTS -> transcription round-trip end to end.
+    audio = make_sample_audio(client)
+    print(f"synthesized {len(audio)} bytes of sample audio via Voxtral TTS")
 
     result = transcribe(
         client, audio,
