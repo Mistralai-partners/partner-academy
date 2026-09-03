@@ -8,7 +8,7 @@ customer's own documents AND refuses unsupported ones instead of hallucinating -
 which is the trust moment that wins a skeptical technical buyer. (When the buyer
 wants this managed rather than hand-built, that is Libraries; see tasks.md.)
 
-Grounded SDK calls (mistralai==1.9.11, verified live):
+Grounded SDK calls (mistralai==2.9.4, verified live):
   - client.embeddings.create(model="mistral-embed", inputs=[...])
   - client.chat.complete(model=..., messages=[...])
 Source: platform-docs-public public/studio-api/knowledge-rag/rag_quickstart.md
@@ -19,7 +19,7 @@ import os
 import sys
 
 from dotenv import load_dotenv
-from mistralai import Mistral
+from mistralai.client import Mistral
 
 load_dotenv()
 CHAT_MODEL = "mistral-small-latest"

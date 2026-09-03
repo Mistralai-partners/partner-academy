@@ -35,11 +35,11 @@ Already cloned the repo for another lab? Just `cd` into this folder instead.
 
 ```bash
 # 1. Read the working scripts, then run the Document AI demo:
-uv run --no-project --with 'mistralai==1.9.11' --with pydantic --with python-dotenv \
+uv run --no-project --with 'mistralai==2.9.4' --with pydantic --with python-dotenv \
   python t1_docai_extract.py
 
 # 2. Run the offline scoping exercises:
-uv run --no-project --with 'mistralai==1.9.11' --with pydantic --with python-dotenv \
+uv run --no-project --with 'mistralai==2.9.4' --with pydantic --with python-dotenv \
   python t3_scope_surface.py
 
 # 3. Confirm the end state (offline, no API key needed):
@@ -58,5 +58,5 @@ with its own verify harness.
 
 ## Notes
 
-- Pin `mistralai==1.9.11`: 2.x breaks `from mistralai import Mistral`.
+- Use `mistralai==2.9.4` (2.x import path: `from mistralai.client import Mistral`), matching the rest of the MAIS family.
 - Tasks 1-2 call the live API; tasks 3-4 are offline decision logic.

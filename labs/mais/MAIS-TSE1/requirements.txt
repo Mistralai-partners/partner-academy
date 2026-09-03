@@ -1,5 +1,5 @@
-# Pinned for this lab. mistralai 2.x breaks `from mistralai import Mistral`.
+# Pinned to match the MAIS family. 2.x import path: from mistralai.client import Mistral.
 # pydantic backs the Document AI annotation schema (task 1).
-mistralai==1.9.11
+mistralai==2.9.4
 pydantic
 python-dotenv
