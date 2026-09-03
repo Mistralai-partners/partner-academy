@@ -8,7 +8,7 @@ and the response comes back as a JSON object matching your schema, not page text
 That is the credibility moment for a finance or operations buyer - no brittle
 regex, no manual entry.
 
-Grounded SDK call (mistralai==1.9.11, verified live):
+Grounded SDK call (mistralai==2.9.4, verified live):
   - client.ocr.process(model="mistral-ocr-latest", document=ImageURLChunk(...),
         document_annotation_format=response_format_from_pydantic_model(Invoice))
 Source: platform-docs-public public/studio-api/document-processing/annotations.md
@@ -20,7 +20,8 @@ import os
 import sys
 
 from dotenv import load_dotenv
-from mistralai import ImageURLChunk, Mistral
+from mistralai.client import Mistral
+from mistralai.client.models import ImageURLChunk
 from mistralai.extra import response_format_from_pydantic_model
 from pydantic import BaseModel, Field
 
