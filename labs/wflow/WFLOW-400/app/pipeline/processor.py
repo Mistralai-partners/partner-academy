@@ -29,7 +29,11 @@ from mistralai.workflows.core.encoding.fields_offloader import (
     OffloadableModel,
     OffloadableField,
 )
-from mistralai.extra.workflows.encoding import EncryptedStrField
+# EncryptedStrField transitively imports httpx, which subclasses urllib.request.Request at
+# import time; the determinism sandbox rejects that. Shield the import so the sandbox passes
+# it through (documented remedy: workflow.unsafe.imports_passed_through).
+with workflow.unsafe.imports_passed_through():
+    from mistralai.extra.workflows.encoding import EncryptedStrField
 
 
 # --- Constraint 1 + 2: large field offloaded, PII field encrypted at rest ------------

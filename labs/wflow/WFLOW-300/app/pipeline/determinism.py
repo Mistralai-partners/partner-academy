@@ -36,7 +36,7 @@ class ReportWorkflow:
         # Deterministic APIs only: these replay to the SAME value from the event history.
         request_id = workflow.uuid4()
         started_at = workflow.now()
-        jitter = workflow.random()
+        jitter = workflow.random().random()
         cfg = await load_config(path)
         return {
             "request_id": str(request_id),
