@@ -1,4 +1,4 @@
-"""URL-slug helper for textkit (solution)."""
+"""URL-slug helper for textkit."""
 import re
 
 
@@ -16,4 +16,4 @@ def slugify(text: str) -> str:
     if not text:
         return ""
     slug = re.sub(r"[^a-z0-9]+", "-", text.lower())
-    return slug.strip("-")
+    return slug

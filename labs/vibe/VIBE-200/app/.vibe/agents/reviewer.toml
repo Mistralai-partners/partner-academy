@@ -3,7 +3,7 @@ display_name = "Reviewer"
 description = "Read-only code-review agent for the textkit repo."
 safety = "safe"
 
-# Read and search only. No write_file, no search_replace, no bash - a reviewer
+# Read and search only. No write_file, no edit, no bash - a reviewer
 # reasons about code, it does not change it.
 enabled_tools = ["read_file", "grep", "task"]
 
