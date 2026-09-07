@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Acceptance check for the VIBE-200 walkthrough lab (textkit).
 
-Run it from this folder after you have read the working code and run it:
+Run it from this folder after you have fixed slugify and re-run the tests:
 
     python3 verify.py
 
