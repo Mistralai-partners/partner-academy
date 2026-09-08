@@ -21,19 +21,30 @@ from __future__ import annotations
 
 import os
 
-from cryptography.hazmat.primitives.ciphers.aead import AESGCM
-from mistralai.extra.workflows.encoding import (
-    PayloadEncoder,
-    PayloadEncryptionConfig,
-    PayloadEncryptionMode,
-    WorkflowEncodingConfig,
-)
+import mistralai.workflows as workflows
+from mistralai.workflows import workflow
+
+# These are activity-only dependencies (used inside the encrypt/decrypt helpers and the
+# extract/summarize activities, never in the deterministic workflow body). The workflow
+# determinism sandbox re-imports every workflow module through its restricted importer at
+# worker validation, and both of these trip it: `cryptography` is a C-extension with
+# import-time side effects (low-level SystemError), and `mistralai.extra.workflows.encoding`
+# pulls in `httpx` at import time (RestrictedWorkflowAccessError on urllib.request). Import
+# both through the documented escape hatch (the same one determinism.py names) so the sandbox
+# passes them through untouched instead of re-importing them.
+with workflow.unsafe.imports_passed_through():
+    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+    from mistralai.extra.workflows.encoding import (
+        PayloadEncoder,
+        PayloadEncryptionConfig,
+        PayloadEncryptionMode,
+        WorkflowEncodingConfig,
+    )
+
 from mistralai.workflows.core.encoding.fields_offloader import (
     OffloadableField,
     OffloadableModel,
 )
-
-import mistralai.workflows as workflows
 
 NONCE_BYTES = 12
 
