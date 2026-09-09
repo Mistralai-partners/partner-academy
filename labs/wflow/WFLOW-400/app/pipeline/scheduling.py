@@ -23,8 +23,8 @@ calls need the platform — `register_schedule` is shown and source-checked.
 Grounded in: building-workflows/scheduling.md (`schedule_workflow(workflow_identifier,
 deployment_name, schedule=ScheduleDefinition(calendars=[ScheduleCalendar(hour=[ScheduleRange(...)])]))`,
 `intervals=[ScheduleInterval(every=)]` + `jitter=`, `SchedulePolicy(overlap=)`, `pause_schedule`/
-`resume_schedule`); shipped ops_plan.py (overlap=SKIP + cron). Interval/jitter field names confirmed
-via context7 this pass.
+`resume_schedule`); shipped ops_plan.py (overlap=SKIP + cron). Interval/jitter field names verified
+against the live Studio Workflows docs this pass.
 """
 from __future__ import annotations
 
