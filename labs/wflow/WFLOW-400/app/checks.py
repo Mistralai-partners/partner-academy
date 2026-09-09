@@ -215,38 +215,55 @@ def t6():
             if not msgs else "; ".join(msgs))
 
 
-# ---- T7 (L4.1): durable agent + safe per-worker MCP credentials ---------------------
+# ---- T7 (L4.1): durable agent (create-fresh) + safe per-worker MCP credentials ------
 def t7():
     import mistralai.workflows as workflows
     import mistralai.workflows.plugins.mistralai as wm
     ag = _mod("agent")
+    src = _src("agent")
     msgs = []
     if not _is_activity(ag.lookup_doc):
         msgs.append("lookup_doc must be an @activity to be a tool")
     if not isinstance(ag.build_session(), wm.RemoteSession):
         msgs.append("build_session must return a RemoteSession")
+    # Create-fresh: the workflow's agent must carry NO hardcoded id. The platform assigns the id on
+    # create; a made-up string id sends RemoteSession down its update_agent branch, which 404s.
     agent = ag.build_docs_agent()
-    if not isinstance(agent, wm.Agent) or agent.id != ag.AGENT_ID:
-        msgs.append("build_docs_agent must return an Agent with a stable id")
+    if not isinstance(agent, wm.Agent):
+        msgs.append("build_docs_agent must return an Agent")
+    elif agent.id is not None:
+        msgs.append("build_docs_agent must be create-fresh (no hardcoded id; the platform assigns it)")
+    if "build_docs_agent()" not in src:
+        msgs.append("the workflow must build its agent create-fresh via build_docs_agent()")
     if ag.lookup_doc not in (agent.tools or []):
         msgs.append("the activity must be wired into the agent's tools")
-    # MCP credential safety: real config objects, env-var names only, per-worker identity.
+    # A real, resolvable MCP server is wired into the workflow's agent (not the placeholder).
+    wired = agent.mcp_clients or []
+    if not any(isinstance(c, wm.MCPStreamableHTTPConfig) for c in wired):
+        msgs.append("the agent must attach a real MCPStreamableHTTPConfig")
+    if not any(c.url.startswith("https://") and "example.com" not in c.url for c in wired):
+        msgs.append("the wired MCP url must be a real https server, not a placeholder like example.com")
+    if "example.com" in src:
+        msgs.append("no placeholder MCP url (example.com) may remain in the module")
+    # Per-worker credential EXAMPLE: real config objects, env-var names only, distinct per identity.
     for cfg in (ag.MCP_WORKER_A, ag.MCP_WORKER_B):
         if not isinstance(cfg, wm.MCPStreamableHTTPConfig):
-            msgs.append("MCP configs must be real MCPStreamableHTTPConfig objects")
-        if not cfg.auth_token_env or not cfg.header_mapping:
-            msgs.append("MCP config must map credentials via env-var names (auth_token_env/header_mapping)")
-    if ag.MCP_WORKER_A.header_mapping == ag.MCP_WORKER_B.header_mapping:
-        msgs.append("the two workers must map the same header to DIFFERENT env vars (per-worker identity)")
-    # Credentials are env-var NAMES, not secret values: every mapped value is an uppercase env-var
+            msgs.append("MCP worker configs must be real MCPStreamableHTTPConfig objects")
+        if not cfg.auth_token_env:
+            msgs.append("each worker config must reference its credential via an env-var name (auth_token_env)")
+    if ag.MCP_WORKER_A.auth_token_env == ag.MCP_WORKER_B.auth_token_env:
+        msgs.append("the two workers must read DIFFERENT key env vars (per-worker identity)")
+    # Credentials are env-var NAMES, not secret values: every reference is an uppercase env-var
     # identifier the worker resolves at runtime, so no secret is serialized into history or source.
-    mapped_values = list(ag.MCP_WORKER_A.header_mapping.values()) + [ag.MCP_WORKER_A.auth_token_env]
+    mapped_values = [ag.MCP_WORKER_A.auth_token_env, ag.MCP_WORKER_B.auth_token_env]
+    mapped_values += list((ag.MCP_WORKER_A.header_mapping or {}).values())
+    mapped_values += list((ag.MCP_WORKER_B.header_mapping or {}).values())
     if not all(v.replace("_", "").isalnum() and v.upper() == v for v in mapped_values):
         msgs.append("MCP credentials must be referenced by uppercase env-var names, never literal secrets")
     spec = workflows.get_workflow_definition(ag.DocsAgentWorkflow)
     if spec.name != "docs-agent-workflow" or "Runner.run" not in inspect.getsource(ag.DocsAgentWorkflow.run):
         msgs.append("workflow must register as 'docs-agent-workflow' and drive Runner.run(...)")
-    return (not msgs, "agent + activity-tool + per-worker MCP env-mapping, no literal secret (SDK)"
+    return (not msgs, "create-fresh agent + activity-tool + real MCP + per-worker env-mapping, no literal secret (SDK)"
             if not msgs else "; ".join(msgs))
 
 
