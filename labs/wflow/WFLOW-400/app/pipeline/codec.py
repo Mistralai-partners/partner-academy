@@ -53,3 +53,14 @@ def decrypt_payload(hex_key: str, blob: bytes, aad: bytes | None = None) -> byte
     aead = _aesgcm(hex_key)
     nonce, ciphertext = blob[:NONCE_BYTES], blob[NONCE_BYTES:]
     return aead.decrypt(nonce, ciphertext, aad)
+
+
+def rotate_key(old_hex: str, new_hex: str, blob: bytes, aad: bytes | None = None) -> bytes:
+    """Rotate an AES-GCM key WITHOUT losing old data (L6.2 Create item).
+
+    Rotation is decrypt-with-old, re-encrypt-with-new: recover the plaintext under the retiring key,
+    then seal it under the new key with a fresh nonce. The returned blob is readable only by
+    new_hex, so you can retire old_hex once every record has been re-wrapped. Runs live crypto.
+    """
+    plaintext = decrypt_payload(old_hex, blob, aad)
+    return encrypt_payload(new_hex, plaintext, aad)
