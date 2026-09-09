@@ -4,22 +4,32 @@
 # WFLOW-200 Lab - Mistral Workflows Intermediate (L200)
 
 > **Before you start:** see the repository root `README.md` -> **Running the labs**
-> for prerequisites (uv, Python, `MISTRAL_API_KEY`, required models), the pinned
-> SDK versions, the two-terminal worker setup, and a troubleshooting table.
+> for prerequisites (uv, Python) and the pinned SDK version. This lab needs no
+> worker and no `MISTRAL_API_KEY`: you read the modules and run `python3 verify.py`.
 
 Working reference code for **Mistral Workflows Intermediate (WFLOW-200)**, the
-L200 (Apply) tier. Five production-ready pipeline modules: define a workflow and
-activity, configure timeout/retries/heartbeat, use signals/queries/updates, wire
-a durable agent, and offload large payloads. This is **working code you read and
-run**, not a broken starter you repair.
+L200 (Apply) tier. Twelve production-ready pipeline modules covering the everyday
+practitioner skills: define a workflow and activity, configure
+timeout/retries/heartbeat, pick an activity flavor, keep a workflow deterministic,
+use signals/queries/updates, wire a durable agent, stream and resume events, run
+child workflows with continue-as-new and schedules, call a Connector, offload and
+encrypt payloads, scale with concurrency and rate limits, and handle production
+errors. This is **working code you read and run**, not a broken starter you repair.
 
 Read the pipeline modules before you run anything:
 
 - `app/pipeline/hello.py` - define a workflow + activity (`HelloWorkflow` + `greet`).
-- `app/pipeline/activity_config.py` - configure timeout, retries, heartbeat.
+- `app/pipeline/activity_config.py` - timeout, retries, heartbeat, and composition.
+- `app/pipeline/flavors.py` - regular / local / sticky activity flavors + `Depends`.
+- `app/pipeline/determinism.py` - deterministic workflow APIs + the escape hatch.
 - `app/pipeline/interactions.py` - signal, query, update on a running workflow.
 - `app/pipeline/agent.py` - wire a simple durable agent.
-- `app/pipeline/payload.py` - offloadable field for large payloads.
+- `app/pipeline/streaming.py` - publish a token stream and resume it without gaps.
+- `app/pipeline/child_continue.py` - child workflows, continue-as-new, and schedules.
+- `app/pipeline/connectors.py` - call an external service through a Connector slot.
+- `app/pipeline/payload.py` - offload large fields and encrypt sensitive ones.
+- `app/pipeline/scale.py` - concurrency (gather / parallel executors) + rate limiting.
+- `app/pipeline/ops.py` - deployments, observability, and typed structured errors.
 
 ## Get the lab files
 

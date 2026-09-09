@@ -19,13 +19,20 @@ from mistralai.workflows.core.encoding.fields_offloader import (
     OffloadableField,
     OffloadableModel,
 )
+from mistralai.workflows.models import EncryptedStrField
 
 import mistralai.workflows as workflows
 
 
+# A large field is OFFLOADED (stored by reference); a sensitive field is ENCRYPTED. They compose:
+# `EncryptedStrField` marks a string for partial encryption, so the SDK encrypts just that field on
+# the worker while the rest of the payload travels normally. Real encryption happens on the worker;
+# here you author the marking — a payload with an SSN or API secret should never travel in the clear.
 class TranscriptionPayload(OffloadableModel):
     audio_id: str  # small reference — stays on the orchestration layer
     transcript: OffloadableField[str] = OffloadableField(value="")  # large — offloaded
+    # Sensitive metadata (e.g. a caller id): marked for partial encryption, not stored in the clear.
+    caller_id: EncryptedStrField = EncryptedStrField(data="")
 
 
 class SummaryInput(OffloadableModel):
@@ -39,6 +46,8 @@ async def transcribe(payload: TranscriptionPayload) -> TranscriptionPayload:
     return TranscriptionPayload(
         audio_id=payload.audio_id,
         transcript=OffloadableField(value=text),
+        # Mark the sensitive field for encryption; the worker encrypts just this field.
+        caller_id=EncryptedStrField(data=f"caller-{payload.audio_id}"),
     )
 
 

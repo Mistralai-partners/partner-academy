@@ -36,8 +36,34 @@ async def fetch_quote(symbol: str) -> dict:
     return {"symbol": symbol, "price": 100.0}
 
 
+# A small, single-purpose activity. Composing several of these beats nesting the whole job in
+# one mega-activity: each step stays independently retryable and visible in the execution trace.
+@workflows.activity(name="normalize_symbol")
+async def normalize_symbol(symbol: str) -> str:
+    return symbol.strip().upper()
+
+
+# A LONG-running activity checkpoints with activity_heartbeat(...) so the platform can fail-fast a
+# stalled attempt before the full start_to_close_timeout elapses (paired with heartbeat_timeout).
+@workflows.activity(
+    name="poll_price",
+    start_to_close_timeout=timedelta(minutes=5),
+    heartbeat_timeout=timedelta(seconds=15),
+)
+async def poll_price(symbol: str) -> dict:
+    last = 0.0
+    for tick in range(3):
+        last = 100.0 + tick
+        # Report progress each tick; a missed heartbeat past heartbeat_timeout fails the attempt.
+        workflows.activity_heartbeat({"symbol": symbol, "tick": tick})
+    return {"symbol": symbol, "price": last}
+
+
 @workflows.workflow.define(name="quote-workflow")
 class QuoteWorkflow:
     @workflows.workflow.entrypoint
     async def run(self, symbol: str) -> dict:
-        return await fetch_quote(symbol)
+        # Compose small activities rather than nesting the whole job in one:
+        # normalize, then fetch the (configured, retried, heartbeating) quote.
+        normalized = await normalize_symbol(symbol)
+        return await fetch_quote(normalized)
