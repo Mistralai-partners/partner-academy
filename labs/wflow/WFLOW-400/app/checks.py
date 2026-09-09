@@ -237,14 +237,19 @@ def t7():
         msgs.append("the workflow must build its agent create-fresh via build_docs_agent()")
     if ag.lookup_doc not in (agent.tools or []):
         msgs.append("the activity must be wired into the agent's tools")
-    # A real, resolvable MCP server is wired into the workflow's agent (not the placeholder).
+    # The default MCP is the official reference server over stdio: assert the stdio shape
+    # (command/args/name), not a URL — a stdio config has no url and needs no hosted third party.
     wired = agent.mcp_clients or []
-    if not any(isinstance(c, wm.MCPStreamableHTTPConfig) for c in wired):
-        msgs.append("the agent must attach a real MCPStreamableHTTPConfig")
-    if not any(c.url.startswith("https://") and "example.com" not in c.url for c in wired):
-        msgs.append("the wired MCP url must be a real https server, not a placeholder like example.com")
-    if "example.com" in src:
-        msgs.append("no placeholder MCP url (example.com) may remain in the module")
+    stdio = next((c for c in wired if isinstance(c, wm.MCPStdioConfig)), None)
+    if stdio is None:
+        msgs.append("the agent must attach the official reference MCP server via MCPStdioConfig (stdio)")
+    else:
+        if stdio.command != "npx":
+            msgs.append("the stdio MCP must launch the reference server via npx")
+        if "@modelcontextprotocol/server-everything" not in (stdio.args or []):
+            msgs.append("the stdio MCP must run @modelcontextprotocol/server-everything")
+        if stdio.name != "server-everything":
+            msgs.append("the stdio MCP config must be named 'server-everything'")
     # Per-worker credential EXAMPLE: real config objects, env-var names only, distinct per identity.
     for cfg in (ag.MCP_WORKER_A, ag.MCP_WORKER_B):
         if not isinstance(cfg, wm.MCPStreamableHTTPConfig):
@@ -263,7 +268,7 @@ def t7():
     spec = workflows.get_workflow_definition(ag.DocsAgentWorkflow)
     if spec.name != "docs-agent-workflow" or "Runner.run" not in inspect.getsource(ag.DocsAgentWorkflow.run):
         msgs.append("workflow must register as 'docs-agent-workflow' and drive Runner.run(...)")
-    return (not msgs, "create-fresh agent + activity-tool + real MCP + per-worker env-mapping, no literal secret (SDK)"
+    return (not msgs, "create-fresh agent + activity-tool + official reference MCP server (stdio) + per-worker env-mapping, no literal secret (SDK)"
             if not msgs else "; ".join(msgs))
 
 
