@@ -1,4 +1,4 @@
-# A3: MCP Connector Config Example (solution, stretch path)
+# A3: MCP Connector Config Example (stretch path)
 
 The connection shape for wiring a remote MCP (Model Context Protocol) server to Vibe. The MCP transport and auth below are grounded in the MCP specification (2025-11-25). The Vibe-Work-specific "add MCP connector" form field labels must be confirmed against the live product.
 
@@ -8,13 +8,13 @@ A remote MCP server is a service that exposes tools over HTTP. To connect one yo
 
 1. **The MCP endpoint URL.** Reached over **Streamable HTTP**, conventionally the `/mcp` path:
  ```
- https://mcp.context7.com/mcp
+ https://your-mcp-server.example/mcp
  ```
  The client sends JSON-RPC messages via HTTP POST to this endpoint and may open an SSE stream via HTTP GET for server-to-client messages.
 
- This example uses **Context7**, a public documentation MCP server that is **read-only and requires no authentication**, so you can connect to it immediately. Its tools are read-only (`resolve-library-id`, `query-docs`). Substitute your own organization's read-only MCP server here when you have one.
+ Point this at your organization's read-only MCP server. If you don't operate one yet, you can run the official reference server locally (`npx -y @modelcontextprotocol/server-everything`) and expose it over HTTP, or use any remote MCP server your team runs. Prefer a read-only server so the connector can only pull, not mutate.
 
-2. **Authentication (only if the server requires it).** The public Context7 example above needs none, so you can skip this step for it. When a server does require auth, it expects an HTTP Authorization header on every request:
+2. **Authentication (only if the server requires it).** A public read-only server may need none, so you can skip this step for it. When a server does require auth, it expects an HTTP Authorization header on every request:
  ```
  Authorization: Bearer <access-token>
  ```
@@ -24,7 +24,7 @@ A remote MCP server is a service that exposes tools over HTTP. To connect one yo
 
 ```
 Connector type: MCP # confirm exact option label in-app
-Server URL: https://mcp.context7.com/mcp # the Streamable HTTP endpoint
+Server URL: https://your-mcp-server.example/mcp # the Streamable HTTP endpoint
 Auth: None for this public example; OAuth (preferred) or Bearer token for servers that require it # confirm exact field labels in-app
 Scope granted: read-only for the class of item you will pull
 ```
